@@ -1,0 +1,334 @@
+<!-- MAIN-CONTENT -->
+
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<main class="main-container settings-provider">
+
+    <div class="internal-container settings-main-wrapper">
+        <div class="">
+            <div class="" *ngIf="user">
+                <h1>{{'account_settings' | translate}}</h1>
+
+                <!-- <div class="warning">Your account is not active to give an offers. Please define services you provide and choose your plan.</div> -->
+                <div class="settings-content-wrapper clearfix">
+                    <div class="settings-nav" *ngIf="!mql.matches">
+                        <ul>
+                            <li *ngFor="let tab of settingsTabs; let i = index">
+                                <button
+                                        (click)="showTab(tab.name)"
+                                        [disabled]="isFirstLogin && (currentStep !== i)"
+                                >
+                                    {{tab.title | translate}}
+                                    <i *ngIf="currentStep > i" class="fa fa-check"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="settings-nav-mobile" *ngIf="mql.matches">
+                        <i class="fa fa-angle-down"></i>
+                        <select (change)="showTab($event.target.value)">
+                            <option *ngFor="let tab of settingsTabs; let i = index"
+                                    [value]="tab.name"
+                                    [disabled]="isFirstLogin && (currentStep !== i)"
+                                    [selected]="tab.name == settingsTabs[currentStep].name"
+                            >
+                                {{tab.title | translate}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="settings-content">
+
+                        <div class="settings-block settings-user" [hidden]="currentTab !== 'user'">
+
+                            <!--<div class="user-settings-avatar-wrapper">-->
+                            <!--<div class="user-settings-avatar">-->
+                            <!---->
+                            <!--</div>-->
+                            <!--<div class="user-settings-avatar-buttons">-->
+                            <!--<button class=""></button>-->
+                            <!--<button class=""></button>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <div class="form-group clearfix">
+                                <input type="file" id="uploadAvatarBtn" class="form-control upload-files-btn" imageUpload (imageSelected)="selectedAvatar($event)"
+                                       [resizeOptions]="resizeOptions">
+                                <div class="table-providers-note-img-btn" (click)="clickFire('#uploadAvatarBtn')" *ngIf="!user.avatar">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                    <span>{{'upload_image' | translate}}</span>
+                                </div>
+                                <div class="avatar-wrapper" *ngIf="user.avatar">
+                                    <img [src]="user.avatar.url" alt="" width="150" *ngIf="user.avatar.url">
+                                    <img [src]="user.avatar" alt="" width="150" *ngIf="!user.avatar.url">
+                                    <div class="table-providers-note-img-remove" (click)="removeAvatar()">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <!-- <input [(ngModel)]="calculator.planName" (ngModelChange)="updateLS($event)"> -->
+                                <label for="name">{{'name' | translate}}:</label>
+                                <input id="name" type="text" class="form-control" [(ngModel)]="user.name">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">{{'last_name' | translate}}:</label>
+                                <input id="lastName" type="text" class="form-control" [(ngModel)]="user.lastName">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">{{'email' | translate}}:</label>
+                                <input disabled id="email" type="email" email class="form-control" [(ngModel)]="user.email">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">{{'phone' | translate}}:</label>
+                                <input id="phone" type="text" class="form-control" [(ngModel)]="user.phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="aboutMe">{{'about_me' | translate}}:</label>
+                                <textarea id="aboutMe" name="aboutMe" class="form-control" [(ngModel)]="user.account_settings.aboutMe"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="offerTemplate">{{'offer_template' | translate}}:</label>
+                                <textarea
+                                        id="offerTemplate"
+                                        name="offerTemplate"
+                                        class="form-control"
+                                        [(ngModel)]="user.account_settings.offerTemplate"
+                                        placeholder="{{'offer_template_placeholder' | translate}}"
+                                ></textarea>
+                            </div>
+
+                            <div class="settings-save-button">
+                                <button *ngIf="!isFirstLogin" class="btn btn-success" (click)="saveSettings()">{{'save_text' | translate}}</button>
+                                <button *ngIf="isFirstLogin" class="btn btn-success" (click)="saveSettings()">{{'next_text' | translate}}</button>
+                                <div [hidden]="!updateSuccess">{{'settings_update_text' | translate}}</div>
+                                <div [hidden]="!updateError">{{'error' | translate}}</div>
+                            </div>
+
+                        </div>
+
+                        <div class="settings-block settings-portfolio" [hidden]="currentTab !== 'portfolio'">
+                            <!-- <input type="file" [attr.id]="portfolioFile" class="form-control" (change)="addImageToPortfolio($event)" multiple accept="image/*">
+                        <div class="table-providers-note-img" *ngFor="let img of user.account_settings.portfolio; let imgIndex = index">
+                            <div class="table-providers-note-img-remove" (click)="removeProtfolioImage(imgIndex)">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </div>
+                            <img [src]="img" alt="" width="150">
+                        </div> -->
+
+                            <h2>{{'attach_images' | translate}}:</h2>
+                            <div class="clearfix">
+                                <input type="file" [attr.id]="'uploadFilesBtn'" class="form-control upload-files-btn" imageUpload (imageSelected)="selected($event, i)"
+                                       [resizeOptions]="resizeOptions" multiple>
+                                <div class="table-providers-note-img" *ngFor="let img of user.account_settings.portfolio; let imgIndex = index">
+                                    <div class="table-providers-note-img-remove" (click)="removeNoteImage(imgIndex)">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </div>
+                                    <img [src]="img.url" alt="" width="150" *ngIf="img.url">
+                                    <img [src]="img" alt="" width="150" *ngIf="!img.url">
+                                </div>
+                                <div class="table-providers-note-img-btn" (click)="clickFire('#uploadFilesBtn')">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                    <span>{{'upload_image' | translate}}</span>
+                                </div>
+                                <!-- <div class="table-providers-note-img-btn" (click)="clickFire('portfolioFile')">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div> -->
+                            </div>
+                            <div class="add-video-div">
+                                <h2>{{'add_video' | translate}}</h2>
+                                <div class="clearfix">
+                                    <label for="videoLink">
+                                        <input [(ngModel)]="videoLink" name="videoLink" id="videoLink" type="text">
+                                        <button class="btn-success" type="button" (click)="addNoteVideo()">{{'add' | translate}}</button>
+                                        <span class="video-url-error" *ngIf="videoUrlError">
+                                                {{'wrong_video_link' | translate}}
+                                            </span>
+                                    </label>
+                                    <div class="table-providers-note-video" *ngFor="let video of portfolioVideoForDisplay; let videoIndex = index">
+                                        <!--<a [href]="video.link" target="_blank"><img [src]="video.thumbnail"></a>  -->
+                                        <div class="video-inline-block">
+                                            <iframe [src]="video.iframe" width="400px" height="200px" frameborder="0"></iframe>
+                                            <span (click)="removeNoteVideo(videoIndex)">
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="settings-save-button">
+                                <button *ngIf="!isFirstLogin" class="btn btn-success" (click)="saveSettings()">{{'save_text' | translate}}</button>
+                                <button *ngIf="isFirstLogin" class="btn btn-success" (click)="saveSettings()">{{'next_text' | translate}}</button>
+                                <div [hidden]="!updateSuccess">{{'settings_update_text' | translate}}</div>
+                                <div [hidden]="!updateError">{{'error' | translate}}</div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="settings-block settings-plan" [hidden]="currentTab !== 'plans'">
+                            <p>{{'version_now_only_free_text' | translate}}</p>
+
+                            <div class="form-group" *ngIf="currentUserPlan">
+                                <p>{{"current_subscription_text" | translate:{ name:currentUserPlan.name | translate, price:currentUserPlan.price } }}</p>
+                            </div>
+
+                                <div class="settings-plan-pricing">
+                                    <div class="[ price-option ] settings-plan-item" *ngFor="let price of subscriptions; let i = index;">
+                                        <div class="settings-plan-border-top"></div>
+                                        <div class="settings-plan-content">
+                                            <div class="price-option__detail">
+                                                <h2 class="price-option__type">{{price.name | translate}}</h2>
+                                                <h2 class="price-option__cost">{{price.price}}
+                                                    <span>/ {{'month' | translate}}</span>
+                                                </h2>
+                                            </div>
+                                            <div class="settings-plan-content-text" *ngIf="false">
+                                                <p>{{price.description | translate}}</p>
+                                            </div>
+                                            <div class="price-option__purchase">
+                                                
+                                                <button type="button"
+                                                        [disabled]="(price.price !== '0') || (currentUserPlan && (price.id === currentUserPlan.id))"
+                                                        (click)="setSubscriptionPlan(i);"
+                                                        class="btn btn-success"
+                                                >
+                                                    {{'get_plan' | translate}}
+                                                </button>
+                                                <p *ngIf="currentUserPlan && (price.id === currentUserPlan.id)">{{"this_is_your_current_plan" | translate}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                           
+
+                            <div class="settings-save-button">
+                                <button *ngIf="!isFirstLogin" class="btn btn-success" (click)="saveSettings()">{{'save_text' | translate}}</button>
+                                <button *ngIf="isFirstLogin" class="btn btn-success" (click)="saveSettings()">{{'next_text' | translate}}</button>
+                                <div [hidden]="!updateSuccess">{{'settings_update_text' | translate}}</div>
+                                <div [hidden]="!updateError">{{'error' | translate}}</div>
+                            </div>
+                        </div>
+
+                        <div class="settings-block settings-services" [hidden]="currentTab !== 'services'">
+                            <h2>{{'chosen_services' | translate}}</h2>
+                            <div class="setting-services-selected">
+                                <span [hidden]="user.services.length > 0">{{'chosen_services_text' | translate}}</span>
+                                <span *ngFor="let service of user.services; let i = index;">
+                                        <span class="chosen-service">
+                                            {{service.name | translate}}
+                                            <span class="pointer" (click)="removeService(i);">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                            </span>
+                                        </span>
+                                        <span [hidden]="i === (user.services.length-1)">,</span>
+                                    </span>
+                            </div>
+
+
+                            <h2>{{'select_services' | translate}}</h2>
+                            <div class="settings-services-items-wrapper">
+                                <div *ngFor="let service of services" class="settings-services-item">
+                                    <input class="gw-checkbox" [attr.id]="'service-'+id" type="checkbox" (click)="addServiceToUser(service)" [(ngModel)]="service.checked"> {{service.name | translate}}
+                                    <label [attr.id]="'service-'+id"></label>
+                                </div>
+                            </div>
+
+
+
+
+                            <!--<div [hidden]="!userSubscriptionSum">Your-->
+                            <!--<span [hidden]="user.plan === 1">monthly</span>-->
+                            <!--<span [hidden]="user.plan === 0">yearly</span> subscription is: {{userSubscriptionSum}} NIS-->
+                            <!--</div>-->
+                            <div class="settings-save-button">
+                                <button *ngIf="!isFirstLogin" class="btn btn-success" (click)="saveSettings()">{{'save_text' | translate}}</button>
+                                <button *ngIf="isFirstLogin" class="btn btn-success" (click)="saveSettings()">{{'next_text' | translate}}</button>
+                                <div [hidden]="!updateSuccess">{{'settings_update_text' | translate}}</div>
+                                <div [hidden]="!updateError">{{'error' | translate}}</div>
+                            </div>
+                        </div>
+
+                        <div class="settings-block settings-notifications-main-wrapper" [hidden]="currentTab !== 'notifications'">
+                            <div class="settings-notifications-wrapper">
+                                <div class="settings-notification-item">
+
+
+                                    <h2>{{'email' | translate}}:</h2>
+                                    <div class="form-group">
+                                        <h3>{{'job_offers' | translate}}:</h3>
+                                        <div class="checkbox">
+                                            <input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getImmediatelyJobsEmail">
+                                            <label>{{'email_job_immediately' | translate}}</label>
+                                        </div>
+                                        <!--<div class="checkbox">-->
+                                        <!--<input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getDailyJobsEmail">-->
+                                        <!--<label>{{'email_job_once' | translate}}</label>-->
+                                        <!--</div>-->
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="radio" [checked]="!user.account_settings.getImmediatelyJobsEmail && !user.account_settings.getDailyJobsEmail"
+                                                       (click)="turnOffSending('EmailsJob');"> {{'email_job_off' | translate}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h3>{{'inbox_messages' | translate}}:</h3>
+                                        <div class="checkbox">
+                                            <input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getImmediatelyMessagesEmail">
+                                            <label>{{'inbox_messages_email_every_text' | translate}}</label>
+                                        </div>
+                                        <!--<div class="checkbox">-->
+                                        <!--<input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getDailyMessagesEmail">-->
+                                        <!--<label>{{'inbox_messages_email_one_text' | translate}}</label>-->
+                                        <!--</div>-->
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="radio" [checked]="!user.account_settings.getImmediatelyMessagesEmail && !user.account_settings.getDailyMessagesEmail"
+                                                       (click)="turnOffSending('EmailsMsg');">{{'inbox_messages_email_off_text' | translate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="settings-notification-item">-->
+                                <!--<h2>{{'sms' | translate}}:</h2>-->
+                                <!--<div class="form-group">-->
+                                <!--<h3>{{'job_offers' | translate}}:</h3>-->
+                                <!--<div class="checkbox">-->
+                                <!--<input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getDailyJobsSms">-->
+                                <!--<label>{{'sms_job_once' | translate}}</label>-->
+                                <!--</div>-->
+                                <!--<div class="checkbox">-->
+                                <!--<input class="gw-checkbox" type="radio" [checked]="!user.account_settings.getDailyJobsSms" (click)="turnOffSending('SMSJobs');">-->
+                                <!--<label>{{'sms_job_off' | translate}}</label>-->
+                                <!--</div>-->
+                                <!--<h3>{{'inbox_messages' | translate}}:</h3>-->
+                                <!--<div class="checkbox">-->
+                                <!--<input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getDailyMessagesSms">-->
+                                <!--<label>{{'sms_inbox_once' | translate}}</label>-->
+                                <!--</div>-->
+                                <!--<div class="checkbox">-->
+                                <!--<label>-->
+                                <!--<input type="radio" [checked]="!user.account_settings.getDailyMessagesSms" (click)="turnOffSending('SMSMsg');">{{'sms_inbox_off' | translate}}</label>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                            <div class="settings-save-button">
+                                <button *ngIf="!isFirstLogin" class="btn btn-success" (click)="saveSettings()">{{'save_text' | translate}}</button>
+                                <button *ngIf="isFirstLogin" class="btn btn-success" (click)="saveSettings()">{{'finish_text' | translate}}</button>
+                                <div [hidden]="!updateSuccess">{{'settings_update_text' | translate}}</div>
+                                <div [hidden]="!updateError">{{'error' | translate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div>-->
+                <!--<button class="btn btn-success" (click)="saveSettings()">Save</button>-->
+                <!--<div [hidden]="!updateSuccess">Settings were updated successfully</div>-->
+                <!--<div [hidden]="!updateError">Error</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+
+</main>

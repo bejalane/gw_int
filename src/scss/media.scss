@@ -1,0 +1,1436 @@
+
+// media
+@media only screen and (max-width: 1220px){
+    .home-blog-wrapper{
+      padding: 70px 20px 100px 20px;
+    }
+    .calculator-main-container{
+      padding: 0 20px;
+    }
+    .table-left-cells .table-cell{
+      width: 33.33333%;
+    }
+    .provider-job-list-main-container{
+      padding: 50px 10px;
+    }
+    .posted-job-wrapper{
+      padding: 10px;
+    }
+    .posted-job{
+      padding: 15px 0;
+    }
+    .settings-main-wrapper{
+      padding: 50px 10px;
+    }
+    .order-by-second-row-buttons{
+      width: 45%;
+    }
+    .order-by-second-row-text{
+      width: 35%;
+    }
+    .order-by-second-row-buttons button{
+      vertical-align: top;
+    }
+    .provider-list-internal-wrapper{
+      padding: 30px 20px;
+    }
+    .lang-he_IL .header-menu{
+      padding-right: 25px;
+    }
+  }
+  
+  @media only screen and (max-width: 1024px){
+    .header-menu{
+      padding: 0 30px;
+    }
+    .table-providers-cell.cell-3{
+      width: 40%;
+    }
+    .table-providers-cell.cell-4{
+      width: 30%;
+    }
+    .table-cell .ui-inputtext{
+      width: 100%;
+    }
+    .table-left-cells{
+      width: 100%;
+      margin-bottom: 20px;
+      float: none;
+    }
+    .table-right-cells{
+      width: 100%;
+      float: none;
+    }
+    .table-right-cells .table-cell{
+      width: 100%;
+    }
+    .table-providers-textarea{
+      width: 100%;
+    }
+    .provider-job{
+      width: 100%;
+      margin-bottom: 30px;
+    }
+    .provider-form{
+      width: 100%;
+    }
+    .provider-job-internal-container{
+      padding: 50px 10px;
+    }
+    .provider-job-extra-info .provider-job-list-details{
+      margin-left: 0;
+    }
+    .posted-job-title{
+      width: 100%;
+      float: none;
+      padding-bottom: 30px;
+    }
+    .job-description-wrapper{
+      width: 100%;
+      float: none;
+    }
+    .posted-job-title-top{
+      width: 100%;
+      float: none;
+      padding-bottom: 0;
+    }
+    .order-by-second-row-buttons{
+      width: 100%;
+      margin-top: 20px;
+    }
+    .offer-price{
+      width: 30%;
+    }
+    .order-by-second-row-text{
+      width: 70%;
+    }
+    .order-by-first-row-portfolio{
+      padding-left: 20px;
+    }
+    .job-description{
+      margin-bottom: 20px;
+    }
+    .active-plans-table{
+      display: none;
+    }
+    .active-plans-table-mobile{
+      display: block;
+      .active-plans-table-row-wrapper{
+        display:-webkit-box;
+        display:-ms-flexbox;
+        display:flex;
+        -webkit-box-pack:justify;
+        -ms-flex-pack:justify;
+        justify-content:space-between;
+        -webkit-box-align:stretch;
+        -ms-flex-align:stretch;
+        align-items:stretch;
+        -ms-flex-wrap:wrap;
+        flex-wrap:wrap;
+        background-color: #ffffff;
+        padding: 0 10px;
+      }
+      .active-plans-add-services{
+        padding: 30px 0 10px 0;
+        button{
+          margin-bottom: 15px;
+        }
+      }
+      .active-plans-table-row{
+        display: block;
+        padding-bottom: 10px;
+        padding-top: 20px;
+        width: 48%;
+      }
+      .active-plan-mobile-offers{
+        display: block;
+        padding-left: 33px;
+      }
+      .budget{
+        padding: 0;
+        padding-left: 33px;
+        small{
+          font-weight: 600;
+          color: #B7B7B7;
+          margin-right: 5px;
+          font-size: 16px;
+        }
+      }
+      .budget:first-child{
+        padding-top: 12px;
+      }
+      .choose-info{
+        color: #B7B7B7;
+        font-style: italic;
+        font-size: 13px;
+        padding-top: 20px;
+      }
+      button.btn-white{
+        border: 1px solid #B7B7B7;
+        text-transform: none;
+      }
+      .two-buttons{
+        margin: 10px 0;
+        i{
+          font-style: normal;
+        }
+      }
+      .two-buttons > button:first-child{
+        float: left;
+        width: 48%;
+      }
+      .two-buttons > button:last-child{
+        float: right;
+        width: 48%;
+      }
+      .active-plan-mob-buttons button{
+        width: 100%;
+        text-transform: none;
+      }
+    }
+    .active-plans-mobile-title{
+      position: relative;
+      .status-icon{
+        display: inline-block;
+        margin-right: 10px;
+      }
+      .money{
+        font-size: 18px;
+        font-weight: bold;
+        font-family: $font-second;
+      }
+      .main-info{
+        display: inline-block;
+        .title{
+          font-size: 16px;
+        }
+      }
+      .plans-mobile-carets {
+        position: absolute;
+        right: 10px;
+        top: 0;
+      }
+    }
+    .active-plan-mobile-offers{
+      color: #B7B7B7;
+      font-style: italic;
+      font-size: 13px;
+    }
+    .login-popup{
+      width: 90%;
+    }
+    .registration-popup .registration-popup-img{
+      display: none;
+    }
+    .registration-popup .registration-popup-form{
+      width: 100%;
+    }
+    .provider-list-internal-wrapper .provider-list-provider-wrapper .provider-list-provider{
+      width: 33.3333%;
+    }
+  
+    .table-providers-cell.cell-5{
+      width: 100%!important;
+      padding-top: 0;
+      div{
+        margin-bottom: 10px;
+      }
+    }
+    .header-menu a{
+      font-size: 12px;
+      margin: 0 9px;
+    }
+  }
+  
+  @media only screen and (max-width: 900px){
+    .home-banner-wrapper{
+      padding: 130px 25px 75px 25px;
+    }
+    .table-providers-header-row .table-providers-cell{
+      font-size: 17px;
+    }
+    .rate span{
+      font-size: 13px;
+    }
+    .dialog-messages{
+      padding: 40px 5%;
+    }
+    .header-wrapper{
+      padding: 16px 10px;
+    }
+    .home-how-working{
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    .settings-block .table-providers-note-img{
+      width: 46%;
+      margin: 2%;
+    }
+    .settings-block .table-providers-note-img-btn{
+      width: 46%;
+      margin: 2%;
+    }
+    .settings-plan-pricing{
+      display: block;
+    }
+    .settings-plan-item{
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .price-option__purchase{
+      padding: 30px 0 20px 0;
+    }
+    .header-user-block{
+      padding: 0;
+    }
+  }
+  @media only screen and (max-width: 768px){
+    .wishlist-wrapper{
+      margin: 0 10px;
+    }
+    header.header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 200;
+    }
+    main, .home-main-content-wrapper {
+      padding-top: 56px !important;
+    }
+    .how-img-circle img {
+      height: 50px;
+    }
+    .order-by-second-row-buttons {
+      div {
+        border: 0;
+      }
+      i {
+        color: #B7B7B7 !important;
+        font-size: 27px;
+      }
+      div a {
+        padding: 8px;
+      }
+      i:hover {
+        color: $color-green !important;
+        transition: 0.2s;
+      }
+      .favorites-icons-job-client-tpl {
+        display: inline-block;
+      }
+    }
+    .message{
+      margin: 0 20px;
+      span{
+        display: none;
+      }
+      i{
+        display: block!important;
+      }
+    }
+    body.dialogs {
+      .dialog-main-wrapper {
+        padding-top: 56px;
+      }
+    }
+    .mobile-menu{
+      display: block;
+    }
+    .header-wrapper{
+      height: 56px;
+    }
+    .header-logo{
+      margin-top: 0;
+      img {
+        height: 64px;
+      }
+    }
+    .table-providers-header-row{
+      display: none;
+    }
+    .table-providers-cell.cell-2 {
+      width: 10%;
+      text-align: left;
+    }
+    .table-providers-cell.cell-1 {
+      width: 90%;
+      position: relative;
+      text-align: left;
+      padding-top: 10px;
+    }
+    .table-providers-cell.cell-3 {
+      width: 100%;
+    }
+    .table-providers-cell.cell-4 {
+      width: 100%;
+    }
+    .mobile-show-service {
+      position: absolute;
+      top: 15px;
+      font-size: 20px;
+      right: 5px;
+      display: block;
+    }
+    .table-providers-textarea-text{
+      padding-left: 10px;
+    }
+    .table-providers-cell{
+      padding: 20px 10px;
+    }
+    .mobile-calc-from-to{
+      display: block;
+    }
+    .provider-job-list-item-info{
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .provider-job-list-description{
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .provider-job-list-count-offers{
+      width: 100%;
+      text-align: left;
+    }
+    .provider-job-name-text h1{
+      font-size: 37px;
+    }
+    .provider-job-name-text p{
+      font-size: 20px;
+    }
+    .settings-notifications-wrapper{
+      display: block;
+    }
+    .settings-notifications-wrapper > div{
+      display: block;
+      width: 100%;
+    }
+    .order-by-first-row-main-info{
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .order-by-first-row-portfolio{
+      width: 100%;
+    }
+    .rate{
+      display: inline-block;
+    }
+    .reviewes{
+      display: inline-block;
+      margin-left: 10px;
+      a{
+        text-decoration: none;
+        color: $color-green;
+        font-style: italic;
+      }
+    }
+    .offer-price{
+      font-size: 30px;
+    }
+    .order-by-wrapper{
+      padding: 30px 10px;
+    }
+    .order-by-first-row-portfolio{
+      padding-left: 0;
+    }
+    .provider-profile-header .provider-profile-name{
+      width: 100%;
+      float: none;
+    }
+    .provider-profile-header .provider-profile-about{
+      width: 100%;
+      float: none;
+      margin-top: 50px;
+      padding: 0;
+      border: 0;
+    }
+    .review-item{
+      width: 100%;
+    }
+    .active-plans-table-mobile .active-plans-table-row{
+      width: 100%;
+    }
+    .active-plans-wrapper{
+      padding: 30px 0;
+    }
+    .login-popup form{
+      width: 100%;
+    }
+    .login-popup-img{
+      display: none;
+    }
+    #edit-plan .gw-modal, #edit-job .gw-modal{
+      width: 90%;
+      position: fixed;
+    }
+    #edit-plan .gw-modal-body{
+      width: 100%;
+    }
+    modal .gw-modal-body{
+      min-width: 100px;
+    }
+    .provider-list-internal-wrapper .provider-list-provider-wrapper .provider-list-provider{
+      width: 50%;
+    }
+  
+    .provider-list-internal-wrapper aside{
+      width: 23%;
+    }
+    .provider-list-internal-wrapper .provider-list-provider-wrapper{
+      width: 77%;
+    }
+    modal .reviews-main-container{
+      width: 100%;
+    }
+    .provider-profile-header{
+      padding: 10px;
+    }
+    .provider-profile-main-container{
+      background-color: #F5F6F7;
+    }
+    .provider-profile-about-title{
+      border-bottom: 1px solid #B7B7B7;
+    }
+    .provider-profile-header .provider-profile-about h3{
+      display: inline-block;
+      border-bottom: 3px solid #0ABAB5;
+    }
+    .header-main-info{
+      position: absolute;
+      top: 56px;
+      background-color: #FFFEFC;
+      left: 0;
+      width: 100%;
+      transition: 3s;
+    }
+    .header-main-info > div{
+      display: block;
+      float: none;
+      text-align: left;
+      padding: 0 10px 10px 10px;
+      border-bottom: 1px solid #ccc;
+    }
+    .header-menu a{
+      display: block;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #d6d6d6;
+      padding: 10px 10px 16px 10px;
+    }
+    .header-language {
+      float: left;
+      margin-top: 0;
+    }
+    .header-user-block {
+      float: left;
+      position: relative;
+      padding: 0 20px 0 0;
+      top: -10px;
+      .nav-user-username img {
+        margin-right: 1px;
+      }
+    }
+    .lang-sub-menu{
+      width: 150%;
+      padding: 10px;
+    }
+    .header-login-block{
+      border: 0;
+    }
+    .nav-user-details{
+      padding: 10px;
+    }
+    .header-menu a{
+      margin-right: 0;
+    }
+    .provider-list-internal-wrapper aside h2{
+      display: inline-block;
+    }
+    .provider-list-select{
+      display: inline-block;
+    }
+    .provider-list-select select{
+      text-align: left;
+      border: 0;
+      color: $color-green;
+      padding: 0 5px;
+      cursor: pointer;
+      background-color: #F6F6F6;
+      option{
+        font-size: 16px;
+        margin-bottom: 3px;
+      }
+    }
+    .form-control{
+      box-shadow: none;
+    }
+  
+    .login-popup {
+      position: absolute;
+    }
+    modal .gw-modal {
+      width: 90%;
+    }
+    .lang-he_IL .header-menu{
+      float: none;
+    }
+    .submit-message i{
+      font-size: 30px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+    #message-textarea{
+      width: 85%;
+    }
+    .how-work-item{
+      width: 100%;
+      margin-bottom: 40px;
+    }
+    .sub-services{
+      div{
+        font-size: 14px;
+      }
+    }
+    .review-item-text img{
+      max-width: auto;
+      width: 100%;
+    }
+    .btn-success{
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+    .mobile-menu-languages{
+      padding: 0;
+      img{
+        width: 25px;
+      }
+    }
+    .mobile-menu-languages button{
+      padding-right: 0;
+      padding-left: 15px;
+    }
+    .table-providers-row{
+      cursor: pointer;
+    }
+  }
+  @media only screen and (max-width: 640px){
+    .home-banner-login p{
+      padding-bottom: 25px;
+    }
+    .home-blog-item{
+      width: 100%!important;
+      margin: 0;
+      margin-bottom: 20px;
+      float: none;
+    }
+    .home-blog-wrapper{
+      padding: 25px 20px;
+    }
+    .home-blog-items-wrapper .item-big{
+      height: 250px;
+    }
+    .home-blog-items-wrapper{
+      padding: 25px 0;
+    }
+    .table-left-cells .table-cell{
+      width: 100%;
+      margin-bottom: 25px;
+    }
+    .table-left-cells .table-cell input, .table-left-cells .table-cell textarea{
+      width: 100%!important;
+    }
+    .table-right-cells .table-cell{
+      min-width: 100%;
+    }
+    .table-providers-textarea-text{
+      width: 100%;
+    }
+    .table-providers-textarea-img{
+      width: 100%;
+    }
+    .provider-job-extra-info .provider-job-list-details{
+      display: block;
+      margin-top: 10px;
+    }
+    .provider-job-name{
+      width: 100%;
+    }
+    .provider-job-header-info{
+      width: 100%;
+      margin: 5px 0;
+      text-align: left;
+      padding: 0;
+    }
+    .provider-job-extra-info{
+      padding: 0;
+    }
+    .provider-job-description{
+      margin-top: 10px;
+    }
+    .provider-job-header-info p{
+      margin-bottom: 0;
+    }
+    .settings-block{
+      padding-left: 0;
+    }
+    .offer-price{
+      font-size: 25px;
+    }
+    .provider-profile-images-wrapper .provider-profile-portfolio-img{
+      width: 48%;
+    }
+    .dialog-list-wrapper{
+      width: 100%;
+    }
+    .dialog-message-wrapper{
+      width: 100%;
+    }
+    .dialog-msg-textarea-text{
+      width: calc(100% - 50px);
+    }
+    .dialog-msg-textarea{
+      padding:10px;
+    }
+    .active-plans-header-description p{
+      text-align: justify;
+    }
+    .provider-job-list-details-wrapper{
+      padding: 0 10px;
+    }
+    .active-plans-wrapper{
+      background-color: #F6F7F8;
+    }
+    .provider-job-list-details{
+      width: 100%;
+      padding: 5px 0;
+    }
+    .pull-right-wrapper{
+      width: 100%;
+      border-left: 0;
+      border-top: 1px solid #B7B7B7;
+    }
+    .pull-right-wrapper{
+      padding: 15px 0;
+      text-align: center;
+      span{
+        float: none!important;
+        font-size: 23px;
+      }
+    }
+    .provider-job-list-details small{
+      margin-right: 15px;
+    }
+    .login-popup form{
+      padding: 45px 10px 20px 10px;
+    }
+    .registration-popup .registration-popup-tabs{
+      padding: 0 10px;
+    }
+    modal .gw-modal{
+      //width: 90%!important;
+    }
+    modal .gw-modal-body{
+      width: 100%!important;
+    }
+    .provider-list-internal-wrapper aside{
+      width: 100%;
+    }
+    .provider-list-internal-wrapper .provider-list-provider-wrapper{
+      width: 100%;
+    }
+    .provider-list-aside-sections{
+      display: none;
+    }
+    .provider-list-internal-wrapper aside h2{
+      padding-bottom: 25px;
+    }
+    .rate{
+      margin-top: 0;
+    }
+    .order-by-user-info{
+      padding-right: 0;
+    }
+    .dialog-msg-textarea-send span{
+      display: none;
+    }
+    .dialog-msg-textarea-send i{
+      display: block;
+      font-size: 20px;
+    }
+    .dialog-msg-textarea-text{
+      border-right: 0;
+    }
+    .dialog-msg-textarea-send{
+      width: 50px;
+      height: 40px;
+      padding: 0;
+    }
+    .dialog-main-wrapper .internal-container{
+      padding: 0;
+    }
+    .dialog-msg-textarea-text textarea{
+      padding: 0;
+      padding-right: 10px;
+      height: 40px;
+    }
+    .provider-job{
+      padding-right: 0;
+    }
+    .settings-content{
+      width: 100%;
+    }
+    .settings-nav{
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .settings-user textarea{
+      height: 200px;
+    }
+    .video-inline-block{
+      display: block;
+      width: 100%;
+      iframe{
+        width: 100%;
+        min-height: 300px;
+      }
+    }
+    .calculator-category{
+      font-size: 16px;
+    }
+    .table-providers-cell.cell-5 label{
+      width: 100%;
+      display: block;
+    }
+    .table-providers-cell.cell-5 input{
+      width: 100%;
+    }
+    .home-wedding-plan-title{
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+    .table-providers-textarea-text{
+      padding-left: 0;
+    }
+    .registration-popup form button {
+      padding: 10px 33px;
+    }
+  
+  }
+  @media only screen and (max-width: 480px){
+    .home-banner-wrapper{
+      padding: 100px 10px 10px 10px;
+    }
+    .home-banner h1{
+      font-size: 37px;
+    }
+    .home-banner p{
+      padding: 15px 0 25px 0;
+      font-weight: 600;
+    }
+    .home-banner-login{
+      width: 100%;
+      a{
+        font-weight: 800;
+      }
+      p{
+        padding: 5px 0 30px 0;
+        font-weight: 300;
+      }
+    }
+    .home-blog-wrapper h2{
+      font-size: 37px;
+    }
+    .home-blog-item h3{
+      font-size: 23px;
+    }
+    .home-wedding-plan-title h2{
+      font-size: 37px;
+      padding-top: 60px;
+    }
+    .home-wedding-plan-input input{
+      width: calc(100% - 70px);
+    }
+    .home-wedding-plan-content p{
+      -webkit-column-count: 1;
+      column-count: 1;
+      margin-bottom: 20px;
+    }
+    .home-tables-title button{
+      display: none;
+    }
+    .calculator-main-container{
+      padding: 0;
+    }
+    .footer .footer-logo{
+      width: 100%;
+      padding-bottom: 30px;
+      text-align: center;
+    }
+    .footer .footer-columns-wrapper{
+      width: 100%;
+    }
+    .footer{
+      padding: 30px;
+    }
+    .footer .footer-socials{
+      width: 100%;
+      margin-top: 50px;
+      li{
+        display: inline-block;
+        margin: 0 15px;
+      }
+    }
+    .footer .footer-columns-wrapper .footer-column{
+      width: 50%;
+      margin-bottom: 60px;
+    }
+    .footer-main-wrapper{
+      padding: 0;
+    }
+    .table-providers-cell.cell-3 span{
+      display: block;
+      margin-bottom: 5px;
+    }
+    .table-providers-cell.cell-3 input{
+      display: block;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .table-providers-note-img-btn{
+      height: 70px;
+    }
+    .table-providers-note-img{
+      height: 70px;
+    }
+    .table-providers-send{
+      padding: 20px 10px;
+    }
+    .table-providers-send button{
+      width: 90%;
+    }
+    .home-tables-providers{
+      margin-bottom: 60px;
+    }
+    .table-providers-cell.cell-2 {
+      width: 15%;
+    }
+    .table-providers-cell.cell-1 {
+      width: 85%;
+    }
+    .home-blog-load-more{
+      a{
+        width: 100%;
+        font-size: 16px;
+      }
+    }
+    .home-blog-items-wrapper{
+      padding: 25px 0 0 0;
+    }
+    .home-wedding-plan-title{
+      padding-bottom: 25px;
+    }
+    .table-general h3{
+      font-size: 18px;
+    }
+    .ui-calendar{
+      width: 100%;
+    }
+    .provider-job-list-container{
+      padding: 15px 10px;
+    }
+    .provider-job-list-title h1{
+      font-size: 37px;
+    }
+    .provider-job-list-title{
+      padding-bottom: 10px;
+    }
+    .provider-name h2{
+      font-size: 23px;
+    }
+    .provider-name span{
+      font-size: 18px;
+    }
+    .provider-job-list-description{
+      padding: 0 0 0 20px;
+      border-left: 1px solid #d2d2d2;
+      border-right: none;
+    }
+    .lang-he_IL{
+      .provider-job-list-description{
+        padding: 0 20px 0 0;
+        border-right: 1px solid #d2d2d2;
+        border-left: none;
+      }
+    }
+    .provider-job-list-count-offers h3{
+      font-size: 18px;
+    }
+    .provider-job-list-main-container{
+      padding: 30px 0;
+    }
+    .settings-main-wrapper h1{
+      font-size: 37px;
+    }
+    .settings-main-wrapper{
+      padding: 25px 10px;
+    }
+    .posted-job-title-top h2{
+      font-size: 23px;
+    }
+    .posted-job-title-top .job-offers{
+      font-size: 23px;
+    }
+    .posted-job-title-top .job-offers-cost{
+      font-size: 18px;
+    }
+    .order-by-first-row-portfolio h2{
+      display: none;
+    }
+    .order-by-first-row-portfolio-view-all{
+      display: none;
+    }
+    .order-by-first-row-portfolio-image{
+      display: none;
+    }
+    .order-by-first-row-portfolio-image:first-child,
+    .order-by-first-row-portfolio-image:nth-child(2){
+      display: inline-block;
+      font-size: 0;
+      margin: 1%;
+      width: 48%;
+      height: 120px;
+    }
+    .portfolio-price{
+      display: block;
+    }
+    .order-by-avatar{
+      width: 20%;
+    }
+    .order-by-user-info{
+      width: 80%;
+    }
+    .order-by-user-info .order-by-user-name{
+      font-size: 18px;
+    }
+    .order-by-first-row{
+      border: 0;
+    }
+    .order-by-user-info{
+      padding-left: 8px;
+    }
+    .rate{
+      margin-bottom: 0;
+    }
+    .order-by-date{
+      display: none;
+    }
+    .order-by-date-mobile{
+      display: block;
+      padding: 5px 0;
+      color: #B7B7B7;
+      font-size: 13px;
+      border-bottom: 1px solid #B7B7B7;
+      font-style: italic;
+    }
+    .order-by-wrapper{
+      padding: 0 10px 10px 10px;
+    }
+    .order-by-first-row-main-info{
+      padding-top: 10px;
+    }
+    .offer-price{
+      width: 100%;
+      float: none;
+    }
+    .order-by-second-row-text{
+      width: 100%;
+      padding-right: 0;
+    }
+    .order-by-first-row{
+      padding-bottom: 0;
+    }
+    .provider-job-image-wrapper{
+      margin-top: 5px;
+    }
+    .provider-profile-header .provider-profile-img{
+      width: 100px;
+    }
+  
+    .provider-profile-header .provider-profile-name-text{
+      width: calc(100% - 100px);
+      padding: 0 10px;
+    }
+    .provider-profile-header .provider-profile-name-text h1{
+      font-size: 18px;
+      padding-bottom: 0;
+    }
+    .provider-profile-images-wrapper .provider-profile-portfolio-img{
+      width: 100%;
+      height: auto;
+    }
+    .provider-job-list-details-title{
+      h2{
+        display: block;
+        float: left;
+      }
+      span{
+        display: block;
+        float: right;
+      }
+    }
+    .login-popup form .login-popup-account-buttons button{
+      margin-bottom: 10px;
+    }
+    .registration-popup .registration-popup-tabs button{
+      width: 100%;
+    }
+    .registration-popup .registration-popup-name-block fieldset{
+      width: 100%;
+    }
+    modal .gw-modal .gw-modal-body{
+      padding: 30px 10px 10px 10px;
+    }
+    modal .gw-modal-body textarea{
+      margin-bottom: 15px;
+    }
+    .btn-warning{
+      padding: 10px;
+    }
+    .provider-job-image-wrapper{
+      margin-right: 10px;
+    }
+    .provider-job-list-details small{
+      margin-bottom: 10px;
+    }
+    modal .review-item-img{
+      float: none;
+    }
+    modal .review-item-text{
+      padding: 0;
+      width: 100%;
+      float: none;
+      h3 {
+        font-size: 20px;
+      }
+    }
+    modal .review-item{
+      padding-right: 0;
+    }
+    modal .review-item-text h3{
+      display: block;
+    }
+    .provider-profile-images-wrapper{
+      padding-top: 30px;
+      display: block;
+    }
+    .provider-profile-header{
+      margin-bottom: 30px;
+    }
+    .provider-profile-images-wrapper .provider-profile-portfolio-img img{
+      padding: 0 5px;
+    }
+    .review-item{
+      padding-right: 0;
+    }
+    .review-item-text{
+      padding-right: 0;
+    }
+    .review-item-text h3{
+      display: block;
+    }
+    .review-yours-wrapper span{
+      font-size: 25px;
+    }
+    .provider-profile-main-container{
+      padding: 30px 0;
+    }
+    .review-yours-wrapper{
+      padding-top: 25px;
+      padding-bottom: 25px;
+    }
+    .review-item{
+      margin-bottom: 25px;
+    }
+    .reviews-main-block{
+      padding-bottom: 0;
+    }
+    .btn-white{
+      padding: 9px 15px;
+    }
+    #edit-job p{
+      padding: 20px 0;
+    }
+    .active-plans-header-select span{
+      text-align: center;
+      padding-bottom: 5px;
+      display: block;
+    }
+    .active-plans-header-select select{
+      width: 100%;
+    }
+    .provider-job-list-details small i{
+      color: #B7B7B7;
+    }
+    .provider-job-list-details .about-us i{
+      color: #B7B7B7;
+    }
+    .internal-container{
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+    .active-plans-add-services button{
+      margin-right: 0;
+      width: 100%;
+      padding: 10px;
+    }
+    .active-plans-table-title h2{
+      font-size: 18px;
+    }
+    .active-plans-table-title{
+      padding: 25px 0 15px 0;
+    }
+    .active-plans-header-description p{
+      padding-bottom: 25px;
+    }
+    .home-banner-login p{
+      font-size: 13px;
+    }
+    .home-blog-wrapper{
+      padding: 25px 10px;
+    }
+    .back-to-basic-mobile{
+      display: block;
+      width: 100%;
+      margin-top: 30px;
+    }
+    .table-left-cells{
+      margin-bottom: 0;
+    }
+    .table-providers-row{
+      margin: 0 10px;
+    }
+    .table-providers-cell.cell-2{
+      padding-left: 0;
+    }
+    .table-providers-cell.cell-1{
+      padding-right: 0;
+    }
+    .provider-profile-images-wrapper .provider-profile-portfolio-img{
+      float: none;
+    }
+    #login-error button{
+      font-size: 12px;
+    }
+    .dialog-chain .message-avatar {
+      width: 30%;
+    }
+    .message-text {
+      width: 80%;
+    }
+    .message-date {
+      width: 20%;
+      font-size: 12px;
+    }
+    #message-textarea {
+      width: 75%;
+    }
+    .message-paperclip {
+      width: 10%;
+    }
+    .submit-message i {
+      font-size: 30px;
+      position: relative;
+      top: 5px;
+      padding-left: 8px;
+    }
+    .dialog-container {
+      //height: calc(100vh - 220px);
+      //max-height: none;
+    }
+    .dialog-container.dialog-chain {
+      height: auto;
+    }
+    .message-hidden-options .table-providers-note-img-btn,
+    .message-hidden-options .table-providers-note-img {
+      width: 70px;
+      height: 70px;
+      margin: 5px 10px;
+    }
+    .dialog-header {
+      margin-top: 0;
+    }
+    h1, h2{
+      font-size: 26px!important;
+    }
+    .home-how-working{
+      padding: 30px 10px;
+    }
+    .how-work-title div a{
+      font-size: 15px;
+    }
+    .review-item{
+      padding-right: 0;
+    }
+    .review-title-desktop{
+      display: none;
+    }
+    .review-item-img{
+      width: 100%;
+      height: 100%;
+    }
+    .review-item-text{
+      padding: 20px 0;
+      width: 100%;
+    }
+    .review-item-img-internal{
+      float: left;
+      width: 100px;
+    }
+    .reviews-title-mobile{
+      display: block;
+      float: left;
+      width: calc(100% - 120px);
+      padding: 0 10px;
+    }
+    .video-inline-block iframe{
+      min-height: 200px;
+    }
+    .settings-services-item{
+      width: 45%;
+    }
+    .settings-save-button{
+      margin-top: 25px;
+    }
+    .provider-job-list-item-info-name{
+      small{
+        margin-right: 5px;
+        display: inline-block;
+      }
+      small, i{
+        font-size: 14px;
+      }
+      i{
+        margin: 0 3px;
+      }
+    }
+    .provider-job-list-item{
+      padding: 5px 0;
+    }
+    .provider-job-title {
+      font-size: 22px!important;
+      padding: 10px 0 5px 0;
+      h2 {
+        font-weight: normal;
+        padding-top: 14px;
+      }
+    }
+    .provider-name {
+      h2 {
+        font-weight: normal;
+        padding-top: 14px;
+      }
+    }
+    .how-img-wrapper {
+      width: 145px;
+      height: 145px;
+    }
+    .how-img-circle{
+      width: 120px;
+      height: 120px;
+    }
+    .table-providers-note-img-btn{
+      width: 46%;
+      margin: 10px 2%;
+      height: 130px;
+    }
+    .table-providers-note-img{
+      width: 46%;
+      margin: 10px 2%;
+      height: 130px;
+    }
+    .table-providers-cell.cell-3{
+      padding: 0;
+    }
+    .table-left-cells .table-cell{
+      padding: 0;
+    }
+    .table-cell-textarea{
+      padding: 0;
+    }
+    .provider-profile-images-wrapper .provider-profile-portfolio-img{
+      margin: 0;
+      margin-bottom: 15px;
+    }
+    .active-plans-header-select div{
+      width: 100%;
+      display: block;
+    }
+    .dialog-main-wrapper{
+      padding-bottom: 0;
+    }
+    .add-custom-provider-col-wrapper{
+      display: block;
+    }
+    .add-custom-provider-col-wrapper div{
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .home-wedding-plan-input{
+      padding-bottom: 50px;
+    }
+    modal .gw-modal-body input[type="text"], modal .gw-modal-body textarea{
+      width: 100%;
+    }
+    .registration-popup form .or-word {
+      padding: 0 7px;
+    }
+    .registration-popup .registration-popup-tabs-wrapper {
+      border-bottom: 1px solid transparent;
+    }
+    .registration-popup .registration-popup-tabs .signup-active-tab {
+      border: 2px solid #0ABAB5;
+      bottom: 0;
+    }
+    .login-popup form {
+      padding: 25px 10px 20px 10px;
+    }
+  }
+  @media only screen and (max-width: 420px){
+    .registration-popup form .or-word {
+      padding: 7px;
+      display: block;
+    }
+  }
+  @media only screen and (max-width: 360px){
+    .provider-list-internal-wrapper .provider-list-provider-wrapper .provider-list-provider{
+      width: 100%;
+      margin-right: 0;
+    }
+    .provider-list-internal-wrapper h1{
+      font-size: 33px;
+    }
+    .order-by-second-row-buttons .message{
+      margin: 0 10px;
+    }
+    .settings-block .table-providers-note-img{
+      width: 96%;
+    }
+    .add-video-div{
+      .btn-success{
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+    .settings-services-item{
+      width: 90%;
+    }
+  
+  }
+  input:focus{
+    outline-color: $color-green!important;
+    outline-width: 1px!important;
+    outline-style: solid!important;
+  }
+  
+  
+  

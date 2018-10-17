@@ -1,0 +1,153 @@
+<div class="login-popup-wrapper registration-popup-wrapper">
+  <div class="popup-bg-overlay"></div>
+  <div class="login-popup registration-popup clearfix">
+
+    <div class="" *ngIf="userType">
+
+      <section class="registration-popup-img">
+      </section>
+
+      <section class="registration-popup-form">
+
+        <div class="login-popup-close" (click)="closePopup()">&times;</div>
+        <h1>Sign up to Getwed</h1>
+        <div class="registration-popup-tabs-wrapper" *ngIf="!successRegistration">
+          <div class="registration-popup-tabs">
+            <button class="btn btn-default" (click)="setUserType('client')" [ngClass]="{'signup-active-tab': userType === 'client'}">{{'i_am_client' | translate}}</button>
+            <button class="btn btn-default" (click)="setUserType('provider')" [ngClass]="{'signup-active-tab': userType === 'provider'}">{{'i_am_provider' | translate}}</button>
+          </div>
+        </div>
+
+
+        <div class="" *ngIf="!successRegistration">
+          <form [formGroup]="authForm" >
+
+            <fieldset>
+              <fieldset class="form-group">
+                <label for="">{{'username' | translate}}</label>
+                <input
+                        formControlName="username"
+                        placeholder=""
+                        class="form-control form-control-lg"
+                        type="text" required />
+                <div *ngIf="authForm.controls.username.invalid && (authForm.controls.username.dirty || authForm.controls.username.touched)" class="field-error">
+                  <div *ngIf="authForm.controls.username.errors.required">
+                    {{'required_field' | translate}}
+                  </div>
+                  <div *ngIf="authForm.controls.username.errors.minlength">
+                    {{'min_length_field' | translate:"{value: 3}"}}
+                  </div>
+                  <div *ngIf="authForm.controls.username.errors.invalidUsername">
+                    {{'username_invalid' | translate}}
+                  </div>
+                </div>
+              </fieldset>
+              <div class="registration-popup-name-block clearfix">
+                <fieldset class="form-group">
+                  <label for="">{{'name' | translate}}</label>
+                  <input
+                          formControlName="name"
+                          placeholder=""
+                          class="form-control form-control-lg"
+                          type="text" required />
+                  <div *ngIf="authForm.controls.name.invalid && (authForm.controls.name.dirty || authForm.controls.name.touched)" class="field-error">
+                    <div *ngIf="authForm.controls.name.errors.required">
+                      {{'required_field' | translate}}
+                    </div>
+                    <div *ngIf="authForm.controls.name.errors.minlength">
+                      {{'min_length_field' | translate:"{value: 3}"}}
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset class="form-group">
+                  <label for="">{{'last_name' | translate}}</label>
+                  <input
+                          formControlName="lastName"
+                          placeholder=""
+                          class="form-control form-control-lg"
+                          type="text" required />
+                  <div *ngIf="authForm.controls.lastName.invalid && (authForm.controls.lastName.dirty || authForm.controls.lastName.touched)" class="field-error">
+                    <div *ngIf="authForm.controls.lastName.errors.required">
+                      {{'required_field' | translate}}
+                    </div>
+                    <div *ngIf="authForm.controls.lastName.errors.minlength">
+                      {{'min_length_field' | translate:"{value: 3}"}}
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              <fieldset class="form-group">
+                <label for="">{{'email' | translate}}</label>
+                <input
+                        formControlName="email"
+                        placeholder=""
+                        class="form-control form-control-lg"
+                        type="email" required email />
+                <div *ngIf="authForm.controls.email.invalid && (authForm.controls.email.dirty || authForm.controls.email.touched)" class="field-error">
+                  <div *ngIf="authForm.controls.email.errors.required">
+                    {{'required_field' | translate}}
+                  </div>
+                  <div *ngIf="authForm.controls.email.errors.email">
+                    {{'email_field' | translate}}
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="">{{'password' | translate}}</label>
+                <input
+                        formControlName="password"
+                        placeholder=""
+                        class="form-control form-control-lg"
+                        type="password" required />
+                <div *ngIf="authForm.controls.password.invalid && (authForm.controls.password.dirty || authForm.controls.password.touched)" class="field-error">
+                  <div *ngIf="authForm.controls.password.errors.required">
+                    {{'required_field' | translate}}
+                  </div>
+                  <div *ngIf="authForm.controls.password.errors.minlength">
+                    {{'min_length_field' | translate:"{value: 6}"}}
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset class="form-group">
+                <label for="">{{'confirm_password' | translate}}</label>
+                <input
+                        formControlName="password_confirmation"
+                        placeholder=""
+                        class="form-control form-control-lg"
+                        type="password" required />
+                <div *ngIf="authForm.controls.password_confirmation.invalid && (authForm.controls.password_confirmation.dirty || authForm.controls.password_confirmation.touched)" class="field-error">
+                  <div *ngIf="authForm.controls.password_confirmation.errors.required">
+                    {{'required_field' | translate}}
+                  </div>
+                  <div *ngIf="authForm.controls.password_confirmation.errors.minlength">
+                    {{'min_length_field' | translate:"{value: 6}"}}
+                  </div>
+                  <div *ngIf="authForm.controls.password_confirmation.errors.confirmPassword">
+                    {{'password_mismatch' | translate}}
+                  </div>
+                </div>
+              </fieldset>
+              <div class="registration-popup-submit-wrapper">
+
+
+
+                <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit" (click)="submitForm(false);">{{'create_account' | translate}}</button>
+                <span class="or-word">{{'or' | translate}}</span>
+                <button class="btn-fb" type="button" (click)="signUpWithFB();"><i class="fa fa-facebook" aria-hidden="true"></i> {{'sign_up_with_facebook' | translate}}</button>
+
+              </div>
+            </fieldset>
+          </form>
+        </div>
+
+
+        <div class="success-registration-message" *ngIf="successRegistration">
+          <h3>You've successfully registered!</h3>
+          <p>The confirmation letter has been sent to your email.</p>
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+</div>

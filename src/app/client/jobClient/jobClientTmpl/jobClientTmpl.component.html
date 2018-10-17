@@ -1,0 +1,118 @@
+<section class="order-by-wrapper">
+    <div class="order-by-date-mobile">
+        <small>{{offer.postDate | date:"dd/MM/yyyy HH:mm"}}</small>
+    </div>
+    <div class="offer-client-wishlist" *ngIf="!isMobile">
+        <a (click)="addToWishlist(offer.id, i)" *ngIf="!offer.inFavorites && mode !== 'wishlist'">
+            <i class="fa fa-heart-o" aria-hidden="true" title="{{add_to_wishlist | translate}}"></i>
+        </a>
+        <a (click)="removeFromWishlist(offer.id, i)" *ngIf="offer.inFavorites || mode === 'wishlist'">
+            <i class="fa fa-heart" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="order-by-to-top" *ngIf="false">to top</div>
+    <div class="order-by-first-row clearfix">
+        <div class="order-by-first-row-main-info clearfix">
+            <div class="order-by-avatar">
+                <img [src]="offer.user.avatar.url" alt="">
+            </div>
+            <div class="order-by-user-info">
+                <div class="order-by-user-name">{{offer.user.name}} {{offer.user.lastName}}</div>
+                <div class="rate" *ngIf="offer.user.rate">
+                    <span *ngFor="let currentRate of offer.user.rate.rate">
+                        <i class="fa fa-star-o" aria-hidden="true" *ngIf="currentRate === 0"></i>
+                        <i class="fa fa-star" aria-hidden="true" *ngIf="currentRate === 1"></i>
+                        <i class="fa fa-star-half-o" aria-hidden="true" *ngIf="currentRate === 2"></i>
+                    </span>
+                    <span> - {{offer.user.rate.rating}}</span>
+                </div>
+                <div class="reviewes">
+                    <a (click)="openReviews();"> {{'reviews' | translate}}: {{offer.user.reviewsCount}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="order-by-first-row-portfolio">
+            <h2>
+                <span>{{'portfolio' | translate}}</span>
+            </h2>
+            <div class="order-by-first-row-portfolio-images-first-wrapper" *ngIf="offer.user.portfolio">
+                <div class="order-by-first-row-portfolio-images-wrapper" *ngIf="offer.user.portfolio.length">
+                    <div class="order-by-first-row-portfolio-image" [ngClass]="{'portfolio-video-item':portfolio.thumbnail}" *ngFor="let portfolio of offer.user.portfolio; let i = index;">
+                        <img [src]="portfolio.url" alt="" (click)="openPortfolio(i);" *ngIf="portfolio.url">
+                        <img [src]="portfolio.thumbnail" alt="" (click)="openPortfolio(i);" *ngIf="portfolio.thumbnail">
+                        <i class="fa fa-play" (click)="openPortfolio(i);" *ngIf="portfolio.thumbnail"></i>
+                    </div>
+                    <div class="order-by-first-row-portfolio-image  order-by-first-row-portfolio-view-all" (click)="openPortfolio(0);">
+                        <span>{{'view_all' | translate}}</span>
+                    </div>
+                    <!--<div class="portfolio-price">-->
+                    <!--{{offer.price}} ₪-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div *ngIf="(!offer.user.portfolio || !offer.user.portfolio.length) && (!portfolioVideoForDisplay || !portfolioVideoForDisplay.length)">
+                {{'there_is_no_portfolio_yet' | translate}}
+            </div>
+        </div>
+    </div>
+    <div class="order-by-second-row">
+        <div class="order-by-date">
+            <small>{{offer.postDate | date:"dd/MM/yyyy HH:mm"}}</small>
+        </div>
+        <div class="order-by-second-row-content clearfix">
+            <div class="offer-price">
+                {{offer.price}} ₪
+            </div>
+            <div class="order-by-second-row-text">
+                {{offer.message}}
+                <span *ngIf="offerMessageReadMore">
+                    <span class="read-more" (click)="showFullMessage(true)" *ngIf="!showFullOfferMessage">{{'read_more' | translate}}</span>
+                    <span class="read-more" (click)="showFullMessage(false)" *ngIf="showFullOfferMessage">{{'show_less' | translate}}</span>
+                </span>
+            </div>
+            <div class="order-by-second-row-buttons">
+                <button class="btn btn-success" (click)="chooseOffer(offer)" *ngIf="(mode !== 'chosenOffer') && (mode !== 'wishlist')">{{'choose' | translate}}</button>
+                <button class="btn-warning" (click)="reopenJob()" *ngIf="(mode === 'chosenOffer') && (mode !== 'wishlist')">{{'cancel' | translate}}</button>
+                <div class="message">
+                    <a (click)="sendMessage(offer.user.username)">
+                        <span>{{'message' | translate}}</span>
+                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                    </a>
+                    <p class="favorites-icons-job-client-tpl">
+                        <a (click)="addToWishlist(offer.id, i)" *ngIf="isMobile && !offer.inFavorites && mode !== 'wishlist'">
+                            <i class="fa fa-heart-o" aria-hidden="true" title="{{add_to_wishlist | translate}}"></i>
+                        </a>
+                        <a (click)="removeFromWishlist(offer.id, i)" *ngIf="isMobile && offer.inFavorites || mode === 'wishlist'">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <!--<div class="order-by-second-row-buttons mobile">-->
+            <!--<button class="btn btn-success" (click)="chooseOffer(offer)" *ngIf="mode !== 'chosenOffer'">{{'choose' | translate}}</button>-->
+            <!--<button class="btn btn-success" (click)="reopenJob()" *ngIf="mode === 'chosenOffer'">{{'cancel' | translate}}</button>-->
+            <!--<div class="message">-->
+            <!--<a (click)="sendMessage(offer.user.username)">{{'message' | translate}}</a>-->
+            <!--</div>-->
+            <!--<div class="wishlist">-->
+            <!--<a (click)="addToWishlist(offer.id, i)" *ngIf="!offer.inFavorites && mode !== 'wishlist'">-->
+            <!--<i class="fa fa-heart-o" aria-hidden="true"></i>-->
+            <!--</a>-->
+            <!--<a (click)="removeFromWishlist(offer.id, i)" *ngIf="offer.inFavorites || mode === 'wishlist'">-->
+            <!--<i class="fa fa-heart" aria-hidden="true"></i>-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+</section>
+<app-image-gallery [images]="imagesForGallery" [startIndex]="indexForGallery" (onClose)="showImageGallery = false" *ngIf="showImageGallery"></app-image-gallery>
+<modal id="offer-reviews_{{offer.user.username}}">
+    <div class="gw-modal">
+        <div class="gw-modal-body">
+            <i class="fa fa-times pull-right" aria-hidden="true" (click)="closeReviews();"></i>
+            <reviews [mode]="'offer'" [offerUserName]="offer.user.username"></reviews>
+        </div>
+    </div>
+    <div class="gw-modal-background"></div>
+</modal>

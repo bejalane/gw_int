@@ -1,0 +1,52 @@
+<!-- MAIN-CONTENT -->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<main class="main-container  dialog-main-wrapper">
+    <div class="internal-container">
+        <h1>{{'messages' | translate}}</h1>
+        <div class="clearfix dialog-internal-container">
+            <div class="dialog-list-wrapper" *ngIf="dialogsList">
+                <div *ngFor="let dialog of dialogsList; let i = index;" class="dialog-list-item clearfix" (click)="chooseDialog(i)" [ngClass]="{'dialog-active': currentDialog === i}">
+                    <div class="dialog-list-avatar ava-img-small">
+                        <img src="https://riss.ru/wp-content/uploads/2017/01/HC7_rTUZaSo.jpg" alt="">
+                    </div>
+                    <div class="dialog-list-info">
+                        <h2>{{dialog.companionName}}</h2>
+                        <p>{{dialog.updated_at | date:"dd.MM.yyyy HH:mm"}}</p>
+                        <p>Hi! Whats up friend!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="dialog-message-wrapper">
+                <div *ngIf="dialog" class="dialog-messages" id="main-dialog-messages">
+                    <div *ngIf="!dialog.messages.data.length">Write a message to start conversation with {{companionName}}</div>
+                    <div class="dialog-message clearfix" *ngFor="let msg of dialogMessages">
+                        <div class="dialog-msg clearfix" [ngClass]="{'dialog-msg-left': msg.data.sender === companion, 'dialog-msg-right': msg.data.sender !== companion}">
+                            <div class="dialog-msg-ava ava-img-small">
+                                <img src="https://riss.ru/wp-content/uploads/2017/01/HC7_rTUZaSo.jpg" alt="">
+                            </div>
+                            <div class="dialog-msg-content">
+                                <div class="dialog-msg-text">{{msg.text}}</div>
+                                <div class="dialog-msg-date">
+                                    <span>{{msg.data.date}}</span>
+                                    <span class="dialog-check">
+                                    <i class="fa fa-check" aria-hidden="true" *ngIf="msg.data.delivered"></i>
+                                    <i class="fa fa-check" aria-hidden="true" *ngIf="msg.data.user2Read && msg.data.user1Read"></i>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div><button (click)="getMoreMessages();">{{'more' | translate}}</button></div>
+                </div>
+                <div class="dialog-msg-textarea clearfix">
+                    <div class="dialog-msg-textarea-text">
+                        <textarea class="form-control" [(ngModel)]="message" placeholder="{{'type_message' | translate}}"></textarea>
+                    </div>
+                    <div class="dialog-msg-textarea-send">
+                        <button class="btn btn-success" (click)="sendMessage()"><span>{{'send_text' | translate}}</span><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

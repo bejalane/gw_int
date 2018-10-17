@@ -1,0 +1,359 @@
+<!-- MAIN-CONTENT -->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<main class="main-container" [hidden]="addServicesToPlan">
+
+    <div class="active-plans-wrapper">
+        <div class="active-plans internal-container">
+            <div class="active-plans-header">
+                <div class="active-plans-header-description">
+                    <h1>{{'plans' | translate}}</h1>
+                    <p>{{'plans_header_descr' | translate}}</p>
+                </div>
+                <div class="active-plans-header-select" *ngIf="activePlans">
+                    <span>
+                        {{'active_plans' | translate}}
+                    </span>
+                    <div>
+                        <select [(ngModel)]="currentPlanId" class="form-control" (ngModelChange)="activePlansChange($event);">
+                            <option *ngFor="let c of activePlans" [ngValue]="c.id">{{c.name}}</option>
+                        </select>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="active-plans-table-wrapper empty-plans-message text-center" *ngIf="!activePlans">
+                <h3>{{'empty_plans_message' | translate}}</h3>
+                <button class="btn btn-success" (click)="_router.navigate([''], {fragment: 'main-calculator'});">{{'create_wedding_plan_button' | translate}}</button>
+            </div>
+
+
+            <div class="active-plans-table-wrapper" *ngIf="activePlans">
+                <div class="active-plans-table-title">
+                    <h2>{{'details' | translate}}</h2>
+                </div>
+                <div class="provider-job-list-details-wrapper clearfix">
+                    <div class="provider-job-list-details" *ngIf="plan">
+
+                        <div class="provider-job-list-details-info">
+                            <small>
+                                <i class="fa fa-map-marker" aria-hidden="true"></i> {{plan.area}}</small>
+                            <i class="fa fa-circle" aria-hidden="true"></i>
+                            <small>
+                                <i class="fa fa-user" aria-hidden="true"></i> {{plan.guests}} {{'guests' | translate}}</small>
+                            <i class="fa fa-circle" aria-hidden="true"></i>
+                            <small>
+                                <i class="fa fa-calendar" aria-hidden="true"></i> {{plan.date | date:"dd/MM/yyyy"}}</small>
+                            <div class="about-us" *ngIf="plan">
+                                <p *ngIf="plan.excerpt.readmore">
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                    {{plan.planDescription}}
+                                    <a class="read-more-span"
+                                       (click)="showFullDescription(!showPlanFullDescription)">
+                                        {{readMoreText | translate}}
+                                    </a>
+                                </p>
+                                <p *ngIf="!plan.excerpt.readmore"><i class="fa fa-file-text-o" aria-hidden="true"></i> {{plan.aboutUs}}</p>
+                            </div>
+                        </div>
+                        <div class="provider-job-list-details-title clearfix">
+                            
+                                <span (click)="openEditPlan()">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="openEditPlan()"> </i>
+                                        <span class="edit-plan-details"> {{'edit' | translate}}</span>
+                                    <!--openModal('edit-plan');-->
+                                </span>
+
+                        </div>
+                    </div>
+                    <div class="pull-right-wrapper">
+                        <span class="pull-right" *ngIf="plan">{{'total' | translate}}: {{getTotalBudget()}}</span>
+                    </div>
+                </div>
+                <div class="active-plans-table-title">
+                    <h2>{{'list_of_providers' | translate}}</h2>
+                </div>
+
+                <div class="active-plans-table">
+                    <div class="active-plans-table-row active-plans-table-row-header">
+                        <div class="active-plans-table-cell cell-1">{{'status' | translate}}</div>
+                        <div class="active-plans-table-cell cell-2">{{'services' | translate}}</div>
+                        <div class="active-plans-table-cell cell-2">{{'budget' | translate}}</div>
+                        <div class="active-plans-table-cell cell-3">{{'offers' | translate}}</div>
+                        <div class="active-plans-table-cell cell-4">{{'chosen_providers' | translate}}</div>
+                        <div class="active-plans-table-cell cell-5">{{'money' | translate}}</div>
+                        <div class="active-plans-table-cell cell-6">{{'edit' | translate}}</div>
+                    </div>
+                    <div class="active-plans-table-row-wrapper">
+                        <div class="active-plans-table-row" *ngFor="let job of plan?.jobs; let i = index">
+                            <div class="active-plans-table-cell cell-1">
+                                <span *ngIf="job.stateId === 1">
+                                        <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+                                </span>
+                                <span *ngIf="job.stateId === 2">
+                                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                </span>
+                                <span *ngIf="job.stateId === 3">
+                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                </span>
+                                <span *ngIf="job.stateId === 4">
+                                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="active-plans-table-cell cell-2">
+                                <span>{{job.serviceName | translate}}</span>
+                            </div>
+                            <div class="active-plans-table-cell cell-2">
+                                <span>{{job.budgetFrom}}...{{job.budgetTo}}₪</span>
+                            </div>
+                            <div class="active-plans-table-cell cell-3" (click)="goToOffers(job.id)">
+                                <button class="btn btn-default" *ngIf="job.stateId !== 4 || job.offersCount !== 0">
+                                    <span >{{'to_offers' | translate}} ({{job.offersCount}})
+                                        <i [hidden]="!job.offersCount" class="fa fa-caret-right" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="active-plans-table-cell cell-4">
+                                <div *ngIf="!job.chosenProvider">
+                                    <span class="span-clickable" (click)="addCustomProvider(i)">{{'add_custom_provider' | translate}}</span>
+                                </div>
+                                <div *ngIf="job.chosenProvider">
+                                    <span>{{job.chosenProvider}}</span>
+                                </div>
+                            </div>
+                            <div class="active-plans-table-cell cell-5">
+                                <span *ngIf="job.chosenProvider">{{job.priceOffer}} ₪</span>
+                            </div>
+                            <div class="active-plans-table-cell cell-6">
+                                <span>
+                                    <i class="fa fa-pencil-square-o" (click)="getJobToEdit(i);" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="active-plans-add-services">
+                        <button class="btn-white" (click)="openCalc(false);">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i>{{'add_service_to_plan' | translate}}</button>
+                        <button class="btn-white" (click)="openCalc(true);">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i>{{'add_service_already_have' | translate}}</button>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="active-plans-table-mobile">
+                    <div class="active-plans-table-row-wrapper">
+                        <div class="active-plans-table-row" *ngFor="let job of plan?.jobs; let i = index">
+
+                            <div class="active-plans-mobile-title" (click)="expnadMobile(i)">
+                                <div class='status-icon'>
+                                    <span *ngIf="job.stateId === 1">
+                                        <i class="fa fa-hourglass-half" aria-hidden="true"></i>
+                                    </span>
+                                    <span *ngIf="job.stateId === 2">
+                                        <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                    </span>
+                                    <span *ngIf="job.stateId === 3">
+                                        <i class="fa fa-ban" aria-hidden="true"></i>
+                                    </span>
+                                    <span *ngIf="job.stateId === 4">
+                                        <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="main-info">
+                                    <span class="title">{{job.serviceName | translate}}</span>
+                                    <span class="money" *ngIf="job.chosenProvider">- {{job.priceOffer}}₪</span>
+                                    <span class="money" *ngIf="!job.chosenProvider">- 0₪</span>
+                                </div>
+                                <div class="active-plan-mobile-offers" *ngIf="job.stateId !== 4 || job.offersCount !== 0">{{job.offersCount}} {{'offers' | translate}}</div>
+                                <div class="plans-mobile-carets">
+                                    <i class="fa fa-angle-down" aria-hidden="true" *ngIf="isMobile && !job.mobileExpanded"></i>
+                                    <i class="fa fa-angle-up" aria-hidden="true" *ngIf="isMobile && job.mobileExpanded"></i>
+                                </div>
+                            </div>
+                            <div [hidden]="isMobile && !job.mobileExpanded">
+                                <div class="budget">
+                                    <small>{{'budget' | translate}}:</small>
+                                    <span>{{job.budgetFrom}}...{{job.budgetTo}}₪</span>
+                                </div>
+                                <div class="budget" *ngIf="job.chosenProvider">
+                                    <small>{{'providers' | translate}}:</small>
+                                    <span>{{job.chosenProvider}} {{job.priceOffer}}₪</span>
+                                </div>
+
+                                <div class="choose-info">
+                                    {{'edit_job_mobile_text' | translate}}
+                                </div>
+                                <div class="active-plan-mob-buttons">
+                                    <div class="two-buttons clearfix">
+                                        <button class="btn-white" (click)="goToOffers(job.id)">
+                                            {{'to_offers' | translate}} ({{job.offersCount}})
+                                        </button>
+                                        <button class="btn-white" (click)="getJobToEdit(i);">
+                                            {{'edit' | translate}}
+                                        </button>
+                                    </div>
+                                    <button *ngIf="!job.chosenProvider" class="btn-white" (click)="addCustomProvider(i)">{{'add_custom_provider' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="active-plans-add-services">
+                        <button class="btn-white" (click)="openCalc(false);">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i>{{'add_service_to_plan' | translate}}</button>
+                        <button class="btn-white" (click)="openCalc(true);">
+                            <i class="fa fa-plus-circle" aria-hidden="true"></i>{{'add_service_already_have' | translate}}</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <!-- <calculator [mode]="mode" [currentPlan]="plan" [customProviders]="customProvidersOpen" *ngIf="addServicesToPlan" (jobAdded)="handleJobsUpdate($event)"></calculator> -->
+
+
+            <modal id="add-custom-provider">
+                <div class="gw-modal">
+                    <div class="gw-modal-body">
+                        <form [formGroup]="addCustomProviderForm" (ngSubmit)="saveCustomProvider()">
+                            <h3>{{'add_custom_provider' | translate}}:</h3>
+                            <div class="add-custom-provider-col-wrapper">
+                                <div class="">
+                                    <label for="customCloseName">{{'provider_name' | translate}}</label>
+                                    <input name="name" formControlName="name" type="text" class="form-control" id="customCloseName" [(ngModel)]="nameForCustomClose">
+                                    <div *ngIf="addCustomProviderForm.controls.name.invalid && (addCustomProviderForm.controls.name.dirty || addCustomProviderForm.controls.name.touched)"
+                                         class="field-error">
+                                        <div *ngIf="addCustomProviderForm.controls.name.errors.required">
+                                            {{'required_field' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <label for="customClosePrice">{{'price_offer' | translate}}</label>
+                                    <input name="summ" formControlName="summ" type="number" class="form-control" id="customClosePrice" [(ngModel)]="priceForCustomClose">
+                                    <div *ngIf="addCustomProviderForm.controls.summ.invalid && (addCustomProviderForm.controls.summ.dirty || addCustomProviderForm.controls.summ.touched)"
+                                         class="field-error">
+                                        <div *ngIf="addCustomProviderForm.controls.summ.errors.required">
+                                            {{'required_field' | translate}}
+                                        </div>
+                                        <div *ngIf="addCustomProviderForm.controls.summ.errors.pattern">
+                                            {{'numeric_field' | translate}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-default btn-success" [disabled]="!addCustomProviderForm.valid" type="submit">{{'save_text' | translate}}</button>
+                            <button class="btn btn-warning" type="button" (click)="closeModal('add-custom-provider');">{{'cancel_text' | translate}}</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="gw-modal-background"></div>
+            </modal>
+
+            <modal id="add-service-to-plan">
+                <div class="gw-modal gw-modal-big gw-modal-flat">
+                    <div class="gw-modal-body">
+                        <h3>{{'add_service_to_plan' | translate}}
+                            <i class="fa fa-times pull-right" aria-hidden="true" (click)="closeModal('add-service-to-plan'); addServicesToPlan = false;"></i>
+                        </h3>
+                        <calculator [mode]="mode" [currentPlan]="plan" [customProviders]="customProvidersOpen" *ngIf="addServicesToPlan" (jobAdded)="handleJobsUpdate($event)"></calculator>
+                    </div>
+                </div>
+                <div class="gw-modal-background"></div>
+            </modal>
+
+            <modal id="edit-plan">
+                <div class="gw-modal">
+                    <div class="gw-modal-body" *ngIf="planCopy">
+                        <i class="modal-close-icon fa fa-times pull-right" aria-hidden="true" (click)="closeModal('edit-plan');"></i>
+                        <h3>{{'edit_plan' | translate}}:</h3>
+                        <form [formGroup]="editPlanForm" (ngSubmit)="editPlan()">
+                            <div>
+                                <h4>{{'name' | translate}}:</h4>
+                                <input formControlName="name" name="name" [(ngModel)]="planCopy.name" type="text" class="form-control">
+                                <div *ngIf="editPlanForm.controls.name.invalid && (editPlanForm.controls.name.dirty || editPlanForm.controls.name.touched)"
+                                     class="field-error">
+                                    <div *ngIf="editPlanForm.controls.name.errors.required">
+                                        {{'required_field' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-calendar-wrapper">
+                                <h4 class="modal-h4-inline">{{'wedding_date' | translate}}:</h4>
+                                <p-calendar formControlName="date" name="date" class="modal-calendar" [(ngModel)]="planCopy.date" [locale]="dp_locale" dateFormat="dd.mm.yy"
+                                            (onSelect)="onSelectDp(ev)"></p-calendar>
+                                <div *ngIf="editPlanForm.controls.date.invalid && (editPlanForm.controls.date.dirty || editPlanForm.controls.date.touched)"
+                                     class="field-error">
+                                    <div *ngIf="editPlanForm.controls.date.errors.required">
+                                        {{'required_field' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4>{{'location_title' | translate}}: </h4>
+                                <select formControlName="area" name="area" [(ngModel)]="planCopy.areaId" class="form-control" (ngModelChange)="areaChange();">
+                                    <option *ngFor="let c of areas" [ngValue]="c.id">{{c.name}}</option>
+                                </select>
+                                <div *ngIf="editPlanForm.controls.area.invalid && (editPlanForm.controls.area.dirty || editPlanForm.controls.area.touched)"
+                                     class="field-error">
+                                    <div *ngIf="editPlanForm.controls.area.errors.required">
+                                        {{'required_field' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4>{{'number_guests' | translate}}:</h4>
+                                <input formControlName="guests" name="guests" [(ngModel)]="planCopy.guests" type="number" class="form-control">
+                                <div *ngIf="editPlanForm.controls.guests.invalid && (editPlanForm.controls.guests.dirty || editPlanForm.controls.guests.touched)"
+                                     class="field-error">
+                                    <div *ngIf="editPlanForm.controls.guests.errors.required">
+                                        {{'required_field' | translate}}
+                                    </div>
+                                    <div *ngIf="editPlanForm.controls.guests.errors.pattern">
+                                        {{'numeric_field' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div>Wedding date: <input [(ngModel)]="plan.date" type="text" class="form-control"></div> -->
+
+                            <div>
+                                <h4>{{'about_us' | translate}}:</h4>
+                                <textarea formControlName="about" name="about" [(ngModel)]="planCopy.aboutUs" class="form-control" placeholder="{{'text_about_you' | translate}}"></textarea>
+                                <div *ngIf="editPlanForm.controls.about.invalid && (editPlanForm.controls.about.dirty || editPlanForm.controls.about.touched)"
+                                     class="field-error">
+                                    <div *ngIf="editPlanForm.controls.about.errors.required">
+                                        {{'required_field' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-button">
+
+                                <button class="btn btn-success" [disabled]="!editPlanForm.valid" type="submit">{{'save_text' | translate}}</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="gw-modal-background"></div>
+            </modal>
+
+            <modal id="edit-job">
+                <div class="gw-modal">
+                    <div class="gw-modal-body" *ngIf="jobForEdit">
+                        <app-job-client-edit [job]="jobForEdit"></app-job-client-edit>
+                    </div>
+                </div>
+                <div class="gw-modal-background"></div>
+            </modal>
+
+        </div>
+    </div>
+
+</main>

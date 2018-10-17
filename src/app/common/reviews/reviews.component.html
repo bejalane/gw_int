@@ -1,0 +1,108 @@
+<!-- MAIN-CONTENT -->
+<main class="main-container reviews-main-container">
+    <div class="internal-container" *ngIf="reviews">
+        <!-- <hr>
+        <div class="col-md-3">
+            <img [src]="profile.avatar" alt="">
+        </div>
+        <div class="col-md-9">
+            <h1>{{profile.name}} {{profile.lastName}}</h1>
+            <div>
+                <span>rating:</span>
+                <span *ngFor="let rate of profile.rate.rate; let i = index;">
+                    <i class="fa fa-star-o" aria-hidden="true" *ngIf="rate === 0"></i>
+                    <i class="fa fa-star" aria-hidden="true" *ngIf="rate === 1"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true" *ngIf="rate === 2"></i>
+                </span>
+                <span> - {{profile.rate.rating}}</span>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <section>
+                <h3>Portfolio:</h3>
+                <div class="table-providers-note-img" *ngFor="let img of profile.account_settings.portfolio; let imgIndex = index">
+                    <img [src]="img" alt="" width="150">
+                </div>
+            </section>
+            <section>
+                <h3>About me:</h3>
+                <p>{{profile.account_settings.aboutMe}}</p>
+            </section> -->
+        <div class="reviews">
+            <div class="reviews-header">
+                <h2>{{'reviews' | translate}}:</h2>
+            </div>
+
+            <div class="reviews-main-block clearfix">
+                <div class="review-item" *ngFor="let review of reviews; let i = index;">
+                    <div class="review-item-img clearfix">
+                       <div class="review-item-img-internal"><img [src]="review.client.avatar.url" alt="" *ngIf="review.client.avatar"></div>
+                        <div class="reviews-title-mobile review-item-text">
+                            <h3>{{review.client.name}} {{review.client.lastName}}</h3>
+                            <span *ngFor="let item of review.rateArr; let i = index;">
+                                        <i class="fa fa-star-o" aria-hidden="true" *ngIf="!review.rateArr[i]"></i>
+                                        <i class="fa fa-star" aria-hidden="true" *ngIf="review.rateArr[i]"></i>
+                                    </span>
+                            <span class="profile-rating-number"> - {{review.rate}}</span>
+                        </div>
+                    </div>
+
+                    <div class="review-item-text">
+                        <div class="review-title-desktop">
+                            <h3>{{review.client.name}} {{review.client.lastName}}</h3>
+                            <span *ngFor="let item of review.rateArr; let i = index;">
+                                        <i class="fa fa-star-o" aria-hidden="true" *ngIf="!review.rateArr[i]"></i>
+                                        <i class="fa fa-star" aria-hidden="true" *ngIf="review.rateArr[i]"></i>
+                                    </span>
+                            <span class="profile-rating-number"> - {{review.rate}}</span>
+                        </div>
+                        <p>{{review.text}}</p>
+                        <div class="review-img" *ngIf="review.image">
+                            <img [src]="review.image.url" alt="">
+                        </div>
+                        <div class="review-share">
+                            <a (click)="share(i)"><i class="fa fa-facebook"></i> {{'share' | translate}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="review-yours-wrapper" *ngIf="mode !== 'offer' && userRole === 'client'">
+                <h3>{{'new_review' | translate}}:</h3>
+                <div (mouseleave)="mOutRating()">
+                    <span *ngFor="let item of newRateLength; let i = index;" (mouseenter)="hoverRate(i)" (click)="chooseRate(i);">
+                        <i class="fa fa-star-o" aria-hidden="true" *ngIf="!newRateLength[i]"></i>
+                        <i class="fa fa-star" aria-hidden="true" *ngIf="newRateLength[i]"></i>
+                    </span>
+                    <span *ngIf="postNewReview.rate !== 0"> - {{postNewReview.rate}}</span>
+                </div>
+                <textarea class="form-control" [(ngModel)]="postNewReview.text"></textarea>
+
+
+                <div class="form-group clearfix">
+                    <input type="file" id="uploadImageBtn" class="form-control upload-files-btn" imageUpload (imageSelected)="selectedImage($event, i)"
+                           [resizeOptions]="resizeOptions">
+                    <div class="table-providers-note-img-btn" (click)="clickFire('#uploadImageBtn')" *ngIf="!postNewReview.image">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span>{{'upload_image' | translate}}</span>
+                    </div>
+                    <div class="avatar-wrapper" *ngIf="postNewReview.image">
+                        <img [src]="postNewReview.image" alt="" width="300">
+                        <div class="table-providers-note-img-remove" (click)="removeImage()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+                <button class="btn btn-success review-send-btn" (click)="submitReview()">{{'submit' | translate}}</button>
+                <div class="post-rating-error" *ngIf="emptyRate">
+                    {{'rate_this_provider_please' | translate}}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</main>

@@ -1,0 +1,93 @@
+<div class="login-popup-wrapper">
+    <div class="popup-bg-overlay"></div>
+    <div class="login-popup clearfix">
+        <div class="login-popup-close" (click)="closePopup()">&times;</div>
+        <div class="login-popup-img">
+            <!--<img src="../../img/login-popup-img.jpg" alt="">-->
+        </div>
+        <form [formGroup]="authForm" (ngSubmit)="submitForm()" *ngIf="!showForgotPaswordForm">
+            <h1>{{'login_title' | translate}}</h1>
+            <fieldset>
+                <fieldset class="form-group">
+                    <label for="">{{'email' | translate}}</label>
+                    <input formControlName="email" name="email" placeholder="Email" class="form-control form-control-lg" type="{{'email' | translate}}" required email  />
+                    <div *ngIf="authForm.controls.email.invalid && (authForm.controls.email.dirty || authForm.controls.email.touched)" class="field-error">
+                        <div *ngIf="authForm.controls.email.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                        <div *ngIf="authForm.controls.email.errors.email">
+                            {{'email_field' | translate}}
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label for="">{{'password' | translate}}</label>
+                    <input formControlName="password" name="password" placeholder="{{'password' | translate}}" class="form-control form-control-lg" type="password" required />
+                    <div *ngIf="authForm.controls.password.invalid && (authForm.controls.password.dirty || authForm.controls.password.touched)" class="field-error">
+                        <div *ngIf="authForm.controls.password.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                        <div *ngIf="authForm.controls.password.errors.minlength">
+                            {{'min_length_field' | translate:"{value: 6}"}}
+                        </div>
+                    </div>
+                </fieldset>
+                <a class="login-popup-forgot-password" (click)="showForgotPaswordForm = true;">
+                    {{'forgot_password' | translate}}
+                </a>
+
+                <div class="login-popup-account">
+                    <div class="login-popup-account-buttons">
+                        <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">{{'log_in' | translate}}</button>
+                        {{'or' | translate}}
+                        <a class="login-popup-create-account" (click)="createAccountRedirect()"> {{'create_account' | translate}}</a>
+                    </div>
+                    <div class="login-popup-account-facebook">
+                        <div class="login-popup-account-facebook-or">
+                            <span>{{'or' | translate}}</span>
+                        </div>
+                        <a (click)="signInWithFB()">
+                            <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                            <span>{{'login_with_facebook' | translate}}</span>
+                        </a>
+                    </div>
+                </div>
+
+
+            </fieldset>
+        </form>
+        <form [formGroup]="forgotPassword" (ngSubmit)="requestPassword()" *ngIf="showForgotPaswordForm">
+            <h1>{{'forgot_password' | translate}}</h1>
+            <p>{{'send_password_reset_email' | translate}}</p>
+            <fieldset class="form-group">
+                <label for="">{{'email' | translate}}</label>
+                <input formControlName="email" placeholder="{{'email' | translate}}" class="form-control form-control-lg" type="email" required email />
+                <div *ngIf="forgotPassword.controls.email.invalid && (forgotPassword.controls.email.dirty || forgotPassword.controls.email.touched)" class="field-error">
+                    <div *ngIf="forgotPassword.controls.email.errors.required">
+                        {{'required_field' | translate}}
+                    </div>
+                    <div *ngIf="forgotPassword.controls.email.errors.email">
+                        {{'email_field' | translate}}
+                    </div>
+                </div>
+            </fieldset>
+            <div class="login-popup-account">
+                <div class="login-popup-account-buttons">
+                    <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!forgotPassword.valid" type="submit">{{'send_text' | translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<modal id="login-error">
+    <div class="gw-modal">
+        <div class="gw-modal-body">
+            <p>{{'invalid_credentials' | translate}}</p>
+            <div>
+                <button class="btn btn-success" (click)="showSingInPopup()"  type="button">{{'dont_have_account' | translate}}</button>
+                <button class="btn btn-default btn-white" (click)="closeLoginPopupError()" type="button">{{'close' | translate}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="gw-modal-background"></div>
+</modal>

@@ -1,0 +1,175 @@
+<!-- MAIN-CONTENT -->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<div class="home-main-content-wrapper">
+	<!-- <div>{{'homepage' | translate}}</div> -->
+	<div class="home-banner-wrapper">
+		<div class="home-banner">
+			<h1>{{'GetWed' | translate}}</h1>
+			<p>{{'get_wed_top_text' | translate}}</p>
+			<div class="home-banner-login-wrapper clearfix" *ngIf="!isUserLoggedIn">
+				<div class="home-banner-login home-banner-signup">
+					<a (click)="showSignUp = true">{{'sign_up' | translate}}</a>
+					<p>{{'sign_up_button_descr' | translate}}</p>
+				</div>
+				<div class="home-banner-login">
+					<a (click)="showLogin = true">{{'login' | translate}}</a>
+					<p>{{'login_button_descr' | translate}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="home-blog-wrapper" *ngIf="false">
+		<h2>{{'blog' | translate}}</h2>
+		<div class="home-blog-items-wrapper clearfix">
+			<div class="home-blog-item item-big">
+				<a href="">
+					<div>
+						<h3>Artcile about wedding in Israel</h3>
+						<p>Bla-bla-bla, blablabla bla blabla. Bla? Blablabla!</p>
+						<span>Oct 29</span>
+					</div>
+				</a>
+			</div>
+
+			<div class="home-blog-item item-small item-white-bg">
+				<a href="">
+					<div>
+						<h3>Big white cake</h3>
+						<span>Oct 24</span>
+					</div>
+				</a>
+			</div>
+
+			<div class="home-blog-item item-small">
+				<a href="">
+					<div>
+						<h3>Big white cake</h3>
+						<span>Oct 24</span>
+					</div>
+				</a>
+			</div>
+
+			<div class="home-blog-item item-small">
+				<a href="">
+					<div>
+						<h3>Big white cake</h3>
+						<span>Oct 24</span>
+					</div>
+				</a>
+			</div>
+			<div class="home-blog-item item-small item-white-bg">
+				<a href="">
+					<div>
+						<h3>Big white cake</h3>
+						<span>Oct 24</span>
+					</div>
+				</a>
+			</div>
+
+
+			<div class="home-blog-item item-long item-white-bg">
+				<a href="">
+					<div>
+						<h3>Artcile about wedding in space</h3>
+						<span>Dec 31</span>
+					</div>
+				</a>
+			</div>
+
+			<div class="home-blog-item item-long">
+				<a href="">
+					<div>
+						<h3>Artcile about wedding in space</h3>
+						<span>Dec 31</span>
+					</div>
+				</a>
+			</div>
+
+		</div>
+		<div class="home-blog-load-more">
+			<a href="">{{'load_more' | translate}}</a>
+		</div>
+	</div>
+
+	<div class="home-how-working">
+		<div class="internal-wrapper">
+			<div class="how-work-title">
+
+				<h2> {{'how_it_works_title' | translate}}</h2>
+				<p>{{'how_it_works_subtitle' | translate}}</p>
+				<div>
+					<a [ngClass]="showClientTab ? 'active' : ''" (click)="showTab('client')">{{'im_getting_married' | translate}}</a>
+					<span> / </span>
+					<a [ngClass]="showProviderTab ? 'active' : ''" (click)="showTab('provider')"> {{'im_provider' | translate}}</a>
+				</div>
+			</div>
+			<div *ngIf="showClientTab" class="client-how how-work-item-wrapper clearfix">
+				<div class="how-work-item">
+					<div class="how-img-wrapper">
+						<div class="how-img-circle">
+							<img src="/assets/images/how-1.png" alt="">
+						</div>
+					</div>
+					<h3>{{'registration' | translate}}</h3>
+					<p>{{'about_registration_text' | translate}}</p>
+				</div>
+				<div class="how-work-item">
+					<div class="how-img-wrapper">
+						<div class="how-img-circle">
+							<img src="/assets/images/how-2.png" alt="">
+						</div>
+					</div>
+					<h3>{{'create_wedding_plan' | translate}}</h3>
+					<p>{{'create_wedding_plan_text' | translate}}</p>
+				</div>
+				<div class="how-work-item">
+					<div class="how-img-wrapper">
+						<div class="how-img-circle">
+							<img src="/assets/images/how-3.png" alt="">
+						</div>
+					</div>
+					<h3>{{'manage_plan' | translate}}</h3>
+					<p>{{'manage_plan_text' | translate}}</p>
+				</div>
+			</div>
+			<div *ngIf="showProviderTab" class="provider-how how-work-item-wrapper clearfix">
+				<div class="how-work-item">
+					<div class="how-img-wrapper">
+						<div class="how-img-circle">
+							<img src="/assets/images/how-1.png" alt="">
+						</div>
+					</div>
+					<h3>{{'registration_provider' | translate}}</h3>
+					<p>{{'about_registration_text_provider' | translate}}</p>
+				</div>
+				<div class="how-work-item">
+					<div class="how-img-wrapper">
+						<div class="how-img-circle">
+							<img src="/assets/images/how-providers-img-2.png" alt="">
+						</div>
+					</div>
+					<h3>{{'setup_account_provider' | translate}}</h3>
+					<p>{{'about_setup_account_provider' | translate}}</p>
+				</div>
+				<div class="how-work-item">
+					<div class="how-img-wrapper">
+						<div class="how-img-circle">
+							<img src="/assets/images/how-providers-img-3.png" alt="">
+						</div>
+					</div>
+					<h3>{{'get_jobs_provider' | translate}}</h3>
+					<p>{{'about_get_jobs_provider' | translate}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+</div>
+<hr>
+<calculator *ngIf="userRole !== 'provider'" [mode]="home"></calculator>
+<login-popup *ngIf="showLogin" (closeForm)="handleCloseLoginForm($event)" (createAccount)="handleCreateAccount($event)"></login-popup>
+<signup-popup *ngIf="showSignUp" (closeForm)="handleCloseSignupForm($event)"></signup-popup>

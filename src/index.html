@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GetWedd</title>
+  <base href="/">
+  <script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="assets/js/sl-accessibility.js"></script>
+  <link rel="stylesheet" href="assets/css/sl-accessibility.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+<app-root>
+  <style>
+    .gw-loader {
+      width: 100%;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba(255, 255, 255, 0.6);
+      z-index: 100000;
+    }
+    .gw-loader-dots-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 66px;
+      height: 30px;
+      margin-left: -33px;
+    }
+    .dot {
+      width: 1em;
+      height: 1em;
+      border-radius: 0.5em;
+      background: #333;
+      position: absolute;
+      animation-duration: 0.5s;
+      animation-timing-function: ease;
+      animation-iteration-count: infinite;
+    }
+    .gw-loader-dots-wrapper.white {
+      background: #fff;
+      z-index: 1001;
+    }
+    .dot1, .dot2 {left: 0;}
+    .dot3 {left: 1.5em;}
+    .dot4 {left: 3em;}
+
+    @keyframes reveal {
+      from { transform: scale(0.001); }
+      to { transform: scale(1); }
+    }
+    @keyframes slide {
+      to { transform: translateX(1.5em) }
+    }
+    .dot1 {
+      animation-name: reveal;
+    }
+    .dot2, .dot3 {
+      animation-name: slide;
+    }
+    .dot4 {
+      animation-name: reveal;
+      animation-direction: reverse; /* thx @HugoGiraudel */
+    }
+    /* Animation */
+    @-webkit-keyframes loading {
+      to { -webkit-transform: rotate(360deg); }
+    }
+    @-moz-keyframes loading {
+      to { -moz-transform: rotate(360deg); }
+    }
+    @-ms-keyframes loading {
+      to { -ms-transform: rotate(360deg); }
+    }
+    @keyframes loading {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+
+  <div class="gw-loader">
+    <div class="gw-loader-dots-wrapper">
+      <div class="dot dot1"></div>
+      <div class="dot dot2"></div>
+      <div class="dot dot3"></div>
+      <div class="dot dot4"></div>
+    </div>
+  </div>
+
+</app-root>
+
+
+<!--ACCESSIBILITY-->
+<div class="sl-acc-open-enter-block">
+  Press <a href="#" tabindex="1">Enter</a> to open acc menu
+</div>
+<div class="sl-acc-open-key-nav-block">
+  Press <a href="#" tabindex="2">Enter</a> to open keyboard navigation
+</div>
+
+<div class="sl-acc-open-icon">
+  <a href="" tabindex="3">
+    <img src="assets/icons/sl-acc-open-icon.png" alt="">
+  </a>
+</div>
+<section class="sl-acc-main-wrapper">
+  <div class="sl-acc-internal-wrapper">
+    <div class="sl-acc-header">
+      <h2>Accessibility settings</h2>
+      <img src="assets/icons/sl-acc-main-icon.png" alt="">
+      <div class="sl-acc-close-icon">
+        &times;
+      </div>
+    </div>
+    <div class="sl-acc-options-wrapper">
+      <div class="sl-acc-font-recize">
+        <h3>Font-resize</h3>
+        <a href="" tabindex="3" class="sl-acc-font-minus sl-acc-button-hover">A -</a>
+        <a href="" tabindex="3" class="sl-acc-font-plus sl-acc-button-hover">A +</a>
+        <a href="" tabindex="3" class="sl-acc-font-reset sl-acc-button-hover">
+          <img src="assets/icons/sl-acc-reset-icon.png" alt="">
+          <span>Reset</span>
+        </a>
+        <a href="" tabindex="3" class="sl-acc-readable-font sl-acc-button-hover sl-acc-standard-button">
+          <img src="assets/icons/sl-acc-readable-icon.png" alt="">
+          <span>Set readable font</span>
+        </a>
+      </div>
+      <div class="sl-acc-highlight-wrapper">
+        <a href="" tabindex="3" class="sl-acc-highlight-header sl-acc-button-hover sl-acc-standard-button">
+          <img src="assets/icons/sl-acc-highheader-icon.png" alt="">
+          <span>Highlight headers</span>
+        </a>
+        <a href="" tabindex="3" class="sl-acc-highlight-links sl-acc-button-hover sl-acc-standard-button">
+          <img src="assets/icons/sl-acc-heightlinks-icon.png" alt="">
+          <span>Highlight links</span>
+        </a>
+        <a href="" tabindex="3" class="sl-acc-img-description sl-acc-button-hover sl-acc-standard-button">
+          <img src="assets/icons/sl-acc-image-descr-icon.png" alt="">
+          <span>Image description</span>
+        </a>
+      </div>
+      <div class="sl-acc-bg-color-wrapper">
+        <div class="sl-acc-bg-color-internal-wrapper">
+          <h3>Set background-color</h3>
+          <div>
+            <a href="" tabindex="3" data-color="#000000" class="sl-acc-bg-color sl-acc-bg-black"></a>
+            <a href="" tabindex="3" data-color="#FFFFFF" class="sl-acc-bg-color  sl-acc-bg-white"></a>
+            <a href="" tabindex="3" data-color="#00FF00" class="sl-acc-bg-color  sl-acc-bg-green"></a>
+            <a href="" tabindex="3" data-color="#00AFF2" class="sl-acc-bg-color  sl-acc-bg-blue"></a>
+            <a href="" tabindex="3" data-color="#FF151F" class="sl-acc-bg-color  sl-acc-bg-red"></a>
+            <a href="" tabindex="3" data-color="#FFF200" class="sl-acc-bg-color  sl-acc-bg-yellow"></a>
+          </div>
+        </div>
+        <a href="" tabindex="3" class="sl-acc-monochrome sl-acc-button-hover sl-acc-standard-button">
+          <img src="assets/icons/sl-acc-monochrome-icon.png" alt="">
+          <span>Monochrome</span>
+        </a>
+        <a href="" tabindex="3" class="sl-acc-contrast sl-acc-button-hover sl-acc-standard-button" id="is_normal_contrast">
+          <img src="assets/icons/sl-acc-contrast-icon.png" alt="">
+          <span>Contrast</span>
+        </a>
+      </div>
+      <div class="sl-acc-cursor-zoom-wrapper">
+        <div>
+          <a href="" tabindex="3" class="sl-acc-big-cursor sl-acc-button-hover sl-acc-standard-button">
+            <img src="assets/icons/sl-acc-big-cursor-icon.png" alt="">
+            <span>Set big cursor</span>
+          </a>
+        </div>
+        <div class="sl-acc-zoom-wrapper">
+          <h2>Page zoom:</h2>
+          <a href=""  tabindex="3" class="sl-acc-zoom-plus sl-acc-button-hover">
+            <img src="assets/icons/sl-acc-zoom-plus.png" alt="">
+          </a>
+          <a href=""  tabindex="3" class="sl-acc-zoom-minus sl-acc-button-hover">
+            <img src="assets/icons/sl-acc-zoom-minus.png" alt="">
+          </a>
+        </div>
+      </div>
+      <div class="sl-acc-reset-wrapper">
+        <a href="" tabindex="3" class="sl-acc-reset accessibility-reset sl-acc-button-hover sl-acc-standard-button">
+          <img src="assets/icons/sl-acc-reset-icon.png" alt="">
+          <span>Reset All</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="sl-acc-report-form-wrapper">
+      <div class="sl-acc-report-form-close">
+        <div class="sl-acc-report-form-close-box">
+          <a href="#"><span class="arrow">&#9668;</span><span class="text">back</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sl-acc-company-name accessibility-company-name">
+      Sairus Logic &copy; 2017
+    </div>
+    <div class="sl-acc-img-title"></div>
+  </div>
+</section>
+
+
+</body>
+</html>

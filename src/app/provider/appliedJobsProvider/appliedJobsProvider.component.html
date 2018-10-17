@@ -1,0 +1,15 @@
+<!-- MAIN-CONTENT -->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<main class="main-container provider-job-list-main-container">
+    <div class="internal-container provider-job-list-container applied-job" *ngIf="jobs">
+        <div class="provider-job-list-title clearfix">
+            <h1>{{'applied_jobs' | translate}}</h1>
+        </div>
+
+        <div *ngIf="jobs">
+            <app-job-provider-tmpl  *ngFor="let job of jobs" [job]="job" [mode]="'applied-jobs'" [isMobile]="isMobile"></app-job-provider-tmpl>
+            <div id="loadMoreAppld"></div>
+        </div>
+    </div>
+
+</main>

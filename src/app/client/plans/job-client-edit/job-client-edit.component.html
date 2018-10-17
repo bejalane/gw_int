@@ -1,0 +1,76 @@
+<h3>{{job.serviceName | translate}}</h3>
+
+<i class="modal-close-icon fa fa-times pull-right" aria-hidden="true" (click)="closeModal('edit-job');"></i>
+
+<div *ngIf="job.stateId === 2 || job.stateId === 4">
+    <p>{{'edit_job_already_chose_text' | translate}}</p>
+    <div class="modal-button">
+        <button class="btn-warning" (click)="reopenJob()" *ngIf="job.stateId === 2 || job.stateId === 4">{{'cancel_chosen_provider' | translate}}</button>
+    </div>
+</div>
+<div *ngIf="job.stateId === 3">
+    <p> {{'have_been_cancelled_text' | translate}}    </p>
+    <div>
+        <button class="btn-warning" (click)="reopenJob()">{{'restore_job' | translate}}</button>
+    </div>
+</div>
+<div *ngIf="job.stateId === 1">
+    <form [formGroup]="editJobForm" (ngSubmit)="update()">
+        <div class="table-providers-cell cell-3 edit-job-row">
+            <div class="modal-edit-jod-top">
+                <h4 class="modal-h4-inline">{{'budget' | translate}}</h4>
+                <span>{{'from_text' | translate}}</span>
+                <input formControlName="budgetFrom" name="budgetFrom" type="number" [(ngModel)]="job.budgetFrom" class="form-control">
+                <span>{{'to_text' | translate}}</span>
+                <input formControlName="budgetTo" name="budgetTo" type="number" [(ngModel)]="job.budgetTo" class="form-control">
+                <div *ngIf="editJobForm.controls.budgetFrom.invalid && (editJobForm.controls.budgetFrom.dirty || editJobForm.controls.budgetFrom.touched)" class="field-error">
+                    <div *ngIf="editJobForm.controls.budgetFrom.errors.required">
+                        {{'required_field' | translate}}
+                    </div>
+                    <div *ngIf="editJobForm.controls.budgetFrom.errors.pattern">
+                        {{'numeric_field' | translate}}
+                    </div>
+                </div>
+                <div *ngIf="editJobForm.controls.budgetTo.invalid && (editJobForm.controls.budgetTo.dirty || editJobForm.controls.budgetTo.touched)" class="field-error">
+                    <div *ngIf="editJobForm.controls.budgetTo.errors.required">
+                        {{'required_field' | translate}}
+                    </div>
+                    <div *ngIf="editJobForm.controls.budgetTo.errors.pattern">
+                        {{'numeric_field' | translate}}
+                    </div>
+                    <div *ngIf="editJobForm.controls.budgetTo.errors.greaterThan">
+                        {{'budget_range_error' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4>{{'description' | translate}}</h4>
+            <textarea formControlName="description" name="description"  [(ngModel)]="job.description" type="text" class="form-control"></textarea>
+        </div>
+
+        <div class="clearfix edit-job-images-wrapper">
+            <div><h4>{{'images' | translate}}:</h4></div>
+            <!-- <input type="file" [attr.id]="'uploadFilesBtn'" class="form-control upload-files-btn" (change)="addImageToNote($event)"
+                multiple> -->
+            <input formControlName="images" name="images" type="file" [attr.id]="'uploadFilesBtn'" class="form-control upload-files-btn" imageUpload (imageSelected)="selected($event, i)"
+                   [resizeOptions]="resizeOptions" multiple>
+            <div class="table-providers-note-img" *ngFor="let img of job.images; let imgIndex = index">
+                <div class="table-providers-note-img-remove" (click)="removeNoteImage($event, imgIndex)">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </div>
+                <img [src]="img.url" alt="" width="150" *ngIf="img.url">
+                <img [src]="img" alt="" width="150" *ngIf="!img.url">
+            </div>
+            <div class="table-providers-note-img-btn" (click)="clickFire(i)">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <span>{{'upload_image' | translate}}</span>
+            </div>
+        </div>
+
+        <div class="table-providers-send">
+            <button class="btn btn-success" [disabled]="!editJobForm.valid" type="submit">{{'save_text' | translate}}</button>
+            <button class="btn btn-warning pull-right" type="button" (click)="cancelJob()" *ngIf="job.stateId === 1">{{'cancel_job' | translate}}</button>
+        </div>
+    </form>
+</div>

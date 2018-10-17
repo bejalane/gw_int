@@ -1,0 +1,9 @@
+.rtl .sl-acc-readable-font{
+    padding-top: 7px;
+}
+.rtl .sl-acc-readable-font span{
+    vertical-align: 1px;
+}
+.rtl .sl-acc-font-plus{
+    margin: 0 5px;
+}

@@ -1,0 +1,84 @@
+<!-- MAIN-CONTENT -->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<main class="main-container provider-profile-main-container">
+    <div class="internal-container" *ngIf="profile">
+        <div class="provider-profile-header clearfix">
+
+            <div class="provider-profile-name clearfix">
+
+                <div class="provider-profile-img">
+                    <img [src]="profile.avatar.url" alt="" width="150" *ngIf="profile.avatar">
+                </div>
+
+                <div class="provider-profile-name-text">
+                    <h1>{{profile.name}} {{profile.lastName}}</h1>
+                    <div>
+                        <span *ngFor="let rate of profile.rate.rate; let i = index;">
+                    <i class="fa fa-star-o" aria-hidden="true" *ngIf="rate === 0"></i>
+                    <i class="fa fa-star" aria-hidden="true" *ngIf="rate === 1"></i>
+                    <i class="fa fa-star-half-o" aria-hidden="true" *ngIf="rate === 2"></i>
+                </span>
+                        <span class="profile-rating-number"> - {{profile.rate.rating}}</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="provider-profile-about">
+                <div class="provider-profile-about-title">
+                    <h3>{{'about_me' | translate}}:</h3>
+                </div>
+                <p>{{profile.account_settings.aboutMe}}</p>
+            </div>
+        </div>
+
+
+
+        <div class="provider-profile-portfolio">
+            <div class="provider-profile-portfolio-header">
+                <h2>{{'portfolio' | translate}}:</h2>
+            </div>
+            <div class="provider-profile-images-wrapper">
+                <div class="table-providers-note-img provider-profile-portfolio-img" *ngFor="let img of profile.account_settings.portfolio; let imgIndex = index">
+                    <img [src]="img.url" alt="" width="150" *ngIf="img.url" (click)="openPortfolio(imgIndex);">
+                    <img [src]="img.thumbnail" alt="" width="150" *ngIf="img.thumbnail" (click)="openPortfolio(imgIndex);">
+                    <div *ngIf="img.iframe" class="portfolio-video"><i class="fa fa-play" (click)="openPortfolio(imgIndex);"></i></div>
+                    <!-- <img [src]="img" alt="" width="150" *ngIf="!img.url"> -->
+                </div>
+            </div>
+
+
+            <!-- <section>
+                <h3>Reviews:</h3>
+                <div>
+                    <div *ngFor="let review of reviews">
+                        <div><img src="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Cool-Sunglasses-icon.png" alt=""> Name Lastname</div>
+                        <div>
+                            <span *ngFor="let item of review.rateArr; let i = index;">
+                                <i class="fa fa-star-o" aria-hidden="true" *ngIf="!review.rateArr[i]"></i>
+                                <i class="fa fa-star" aria-hidden="true" *ngIf="review.rateArr[i]"></i>
+                            </span>
+                            <span> - {{review.rate}}</span>
+                        </div>
+                        <p>{{review.text}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div>Write new review:</div>
+                <div (mouseleave)="mOutRating()">
+                    <span *ngFor="let item of newRateLength; let i = index;" (mouseenter)="hoverRate(i)" (click)="chooseRate(i);">
+                        <i class="fa fa-star-o" aria-hidden="true" *ngIf="!newRateLength[i]"></i>
+                        <i class="fa fa-star" aria-hidden="true" *ngIf="newRateLength[i]"></i>
+                    </span>
+                    <span *ngIf="postNewReview.rate !== 0"> - {{postNewReview.rate}}</span>
+                </div>
+                <textarea class="form-control" [(ngModel)]="postNewReview.text"></textarea>
+                <button class="btn btn-success" (click)="submitReview()">Submit</button>
+            </section> -->
+        </div>
+    </div>
+    <reviews></reviews>
+</main>
+<app-image-gallery [images]="imagesForGallery" [startIndex]="indexForGallery" (onClose)="showImageGallery = false" *ngIf="showImageGallery"></app-image-gallery>

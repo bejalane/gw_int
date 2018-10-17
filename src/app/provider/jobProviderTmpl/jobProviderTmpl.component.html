@@ -1,0 +1,55 @@
+<div class="provider-job-list-item clearfix" (click)="goToJob(job.id)">
+    <div class="provider-job-list-item-info">
+        <div class="provider-job-list-item-info-name">
+            <div class="provider-job-list-service-name" *ngIf="isMobile">
+                <span class="provider-job-service-name" (click)="goToJob(job.id)">{{job.serviceName | translate}}</span>
+                <span>{{job.offersCount}} {{'offers' | translate}}</span>
+            </div>
+            <div *ngIf="job.iWon && mode == 'applied-jobs'">
+                <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                <small>{{'client_chosed_you' | translate}}</small>
+            </div>
+            <div class="provider-name">
+                <!-- <img width="50px" height="50px" src="{{job.userAvatar}}" alt="" *ngIf="!isMobile">
+                <h2 class="provider-job-title">{{job.name}}</h2> -->
+                <div>
+                    <div class="provider-job-list-price"> ₪ {{job.budgetFrom}}-{{job.budgetTo}}</div>
+
+                </div>
+            </div>
+            <div>
+                <small>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>{{job.area | translate}}</small>
+                <small>
+                    <i class="fa fa-user" aria-hidden="true"></i> {{job.guests}} {{'guests' | translate}}</small>
+                <small>
+                    <i class="fa fa-calendar" aria-hidden="true"></i> {{job.date | date:'dd/MM/yyyy'}}</small>
+            </div>
+            <div class="provider-job-list-service-name" *ngIf="!isMobile">
+                <span class="provider-job-service-name" (click)="goToJob(job.id)">{{job.serviceName | translate}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="provider-job-list-description">
+        <div class="provider-name">
+            <img width="50px" height="50px" src="{{job.userAvatar}}" alt="">
+            <h2 class="provider-job-title">{{job.name}}</h2>
+        </div>
+        <div class="provider-job-description">{{job.description}}</div>
+        <span class="read-more">{{'read_more' | translate}}</span>
+    </div>
+
+    <div class="provider-job-list-count-offers" *ngIf="!isMobile && (mode == 'jobs-list' || mode == 'wishlist')">
+        <span>{{job.postDate | date:'dd/MM/yyyy h:m'}}</span>
+        <h3>{{job.offersCount}} {{'offers' | translate}}</h3>
+    </div>
+
+    <div class="provider-job-list-count-offers" *ngIf="mode == 'wishlist'">
+        <button class="btn-success btn btn-default btn-sm" (click)="removeFromWishlist($event, index);"><i class="fa fa-heart" aria-hidden="true"></i>{{'remove' | translate}}</button>
+    </div>
+
+    <div class="provider-job-list-count-offers" *ngIf="mode == 'applied-jobs'">
+        <h3>{{'my_offer' | translate}}</h3>
+        <div>{{job.myOffer}} ₪</div>
+    </div>
+</div>

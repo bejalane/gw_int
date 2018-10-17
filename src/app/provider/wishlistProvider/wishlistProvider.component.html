@@ -1,0 +1,18 @@
+<!-- MAIN-CONTENT -->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<main class="main-container provider-job-list-main-container">
+
+    <div class="internal-container provider-job-list-container wishlist">
+
+        <div class="provider-job-list-title clearfix">
+            <h1>{{'wishlist' | translate}}</h1>
+        </div>
+
+        <div *ngIf="wishlist">
+            <app-job-provider-tmpl  *ngFor="let job of wishlist; let i = index;" [job]="job" [mode]="'wishlist'" [isMobile]="isMobile" [index]="i" (unsetFromWishlist)="removeHandler(i);"></app-job-provider-tmpl>
+            <div id="loadMoreFvrts"></div>
+        </div>
+
+    </div>
+
+</main>

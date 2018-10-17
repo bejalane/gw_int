@@ -1,0 +1,56 @@
+<!--Preloader-->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<!--END Preloader-->
+<main class="main-container  dialog-main-wrapper">
+    <div class="internal-container">
+
+        <h1>{{'messages' | translate}}</h1>
+
+        <!-- <div class="dialogs-container" *ngIf="dialogs">
+
+            <div class="dialog-item" *ngFor="let dialog of dialogs; let i = index;">
+                <hr>
+                <img class="companion-avatar" [src]="dialog.companionAvatar.url" width="80px">
+                <div class="companion-name">
+                    {{dialog.companionName}} [{{dialog.companion}}]
+                </div>
+                <div class="last-message">
+                    <p>&laquo; {{dialog.lastMessage.text}} &raquo;</p>
+                    <a (click)="openDialod(i);">{{'messages' | translate}}</a>
+                    <small *ngIf="dialog.lastMessage">{{dialog.lastMessage.created_at}}</small>
+                </div>
+            </div>
+
+        </div> -->
+
+        <div class="dialog-container dialog-chain" *ngFor="let dialog of dialogs; let i = index;">
+            <div class="message-wrapper clearfix"  (click)="openDialod(i);">
+                <div class="message-item">
+                    <div class="message-avatar">
+                        <img class="companion-avatar" [src]="dialog.companionAvatar.url" width="80px">
+                    </div>
+
+                    <div class="message-text">
+                        <div class="message-sender">{{dialog.companionName}}</div>
+                        <div *ngIf="dialog.lastMessage.data.images.length && !dialog.lastMessage.text; then thenBlock"></div>
+                        <ng-template #thenBlock>
+                            <div>{{'file_attachment' | translate}}</div>
+                        </ng-template>
+
+                        <div>{{dialog.lastMessage.text}}</div>
+                        <span class="message-date">
+                            {{dialog.lastMessage.created_at | date:'dd.MM.yyyy HH:mm:ss'}}
+                        </span>
+                    </div>
+
+                    <!--<div class="to-messages-btn" *ngIf="!isMobile">-->
+                        <!--<button class="btn btn-success">{{'to_dialogue' | translate}}</button>-->
+                    <!--</div>-->
+
+                </div>
+
+            </div>
+            <hr>
+        </div>
+    </div>
+</main>

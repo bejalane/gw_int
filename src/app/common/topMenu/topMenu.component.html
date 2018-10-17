@@ -1,0 +1,281 @@
+<header class="header">
+    <div class="header-wrapper clearfix">
+        <div class="mobile-menu" (click)="openMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="header-logo" *ngIf="!(isMobile && userName)">
+            <a (click)="redirect('');">
+                <img src="/assets/images/logo.png" alt="">
+            </a>
+        </div>
+        <div class="header-user-block" *ngIf="isMobile">
+            <span *ngIf="userName" class="nav-user">
+                <span class="nav-user-username">
+                    <img *ngIf="userAvatar" src="{{ userAvatar }}" alt="">
+                    <span>{{userName}}</span>
+                </span>
+            </span>
+        </div>
+        <div class="header-language" *ngIf="isMobile">
+
+            <!-- <span>{{currentLanguageName | translate}}
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </span>
+            <ul class="nav-user-details lang-sub-menu">
+                <li (click)="switchLanguage('en_US'); closeMobileMenu();">{{'en_US' | translate}}</li>
+                <li (click)="switchLanguage('he_IL'); closeMobileMenu();">{{'he_IL' | translate}}</li>
+            </ul> -->
+        </div>
+
+        <!-- <div class="header-main-info clearfix" *ngIf="isMobile" [@popOverState]="state"> -->
+        <div class="header-main-info clearfix" *ngIf="isMobile && state === 'show'">
+            <div class="header-menu">
+                <a (click)="redirect(''); closeMobileMenu();">{{'home' | translate}}</a>
+                <a (click)="redirect('providers-list'); closeMobileMenu();">{{'providers' | translate}}</a>
+                <a (click)="redirect('plans'); closeMobileMenu();" *ngIf="userRole === 'client'">{{'plans' | translate}}</a>
+                <a (click)="redirect('jobs-list'); closeMobileMenu();" *ngIf="userRole === 'provider'">{{'jobs' | translate}}</a>
+                <a (click)="redirect('applied-jobs'); closeMobileMenu();" *ngIf="userRole === 'provider'">{{'applied_jobs' | translate}}</a>
+                <a *ngIf="userRole === 'client'" (click)="redirect('wishlist'); closeMobileMenu();">{{'wishlist' | translate}}</a>
+                <a *ngIf="userRole === 'provider'" (click)="redirect('wishlist-provider'); closeMobileMenu();">{{'wishlist' | translate}}</a>
+                <a *ngIf="userRole !== 'guest'" (click)="redirect('messages'); closeMobileMenu();">{{'inbox_messages' | translate}}</a>
+                <a (click)="redirect('userSettings'); closeMobileMenu();" *ngIf="userRole === 'client'">{{'settings' | translate}}</a>
+                <a (click)="redirect('providerSettings'); closeMobileMenu();" *ngIf="userRole === 'provider'">{{'settings' | translate}}</a>
+                <a (click)="logout(); closeMobileMenu();" *ngIf="isUserLoggedIn">{{'logout' | translate}}</a>
+                <a *ngIf="!userName" (click)="closeMobileMenu(); showLogin = true;">{{'login' | translate}}</a>
+                <a *ngIf="!userName" (click)="closeMobileMenu(); showSignUp = true;">{{'sign_up' | translate}}</a>
+                <div class="mobile-menu-languages">
+                    <button (click)="switchLanguage('en_US'); closeMobileMenu();" [ngClass]="{'active-language':currentLanguageName === 'en_US'}">
+                        <img src="/assets/images/eng.png" alt="{{'en_US_short' | translate}}">
+                    </button>
+                    <button (click)="switchLanguage('he_IL'); closeMobileMenu();" [ngClass]="{'active-language':currentLanguageName === 'he_IL'}">
+                        <img src="/assets/images/isr.png" alt="{{'he_IL_short' | translate}}">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-main-info clearfix" *ngIf="expandTopMenu && !isMobile">
+            <div class="header-menu">
+                <a (click)="redirect(''); closeMobileMenu();">{{'home' | translate}}</a>
+                <a (click)="redirect('providers-list'); closeMobileMenu();">{{'providers' | translate}}</a>
+                <a (click)="redirect('plans'); closeMobileMenu();" *ngIf="userRole === 'client'">{{'plans' | translate}}</a>
+                <a (click)="redirect('jobs-list'); closeMobileMenu();" *ngIf="userRole === 'provider'">{{'jobs' | translate}}</a>
+                <a (click)="redirect('applied-jobs'); closeMobileMenu();" *ngIf="userRole === 'provider'">{{'applied_jobs' | translate}}</a>
+            </div>
+            <div class="header-language" *ngIf="!isMobile">
+                <div>
+                    <span (click)="switchLanguage('en_US'); closeMobileMenu();" [ngClass]="{'active-language':currentLanguageName === 'en_US'}">
+                        <img src="/assets/images/eng.png" alt="{{'en_US_short' | translate}}">
+                    </span>
+                    <span (click)="switchLanguage('he_IL'); closeMobileMenu();" [ngClass]="{'active-language':currentLanguageName === 'he_IL'}">
+                        <img src="/assets/images/isr.png" alt="{{'he_IL_short' | translate}}">
+                    </span>
+                </div>
+                <!-- <span>{{currentLanguageName | translate}}
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </span>
+                <ul class="nav-user-details lang-sub-menu">
+                    <li (click)="switchLanguage('en_US'); closeMobileMenu();">{{'en_US' | translate}}</li>
+                    <li (click)="switchLanguage('he_IL'); closeMobileMenu();">{{'he_IL' | translate}}</li>
+                </ul> -->
+            </div>
+            <div class="header-login-block" *ngIf="!isMobile">
+                <a [hidden]="userRole !== 'client'" (click)="redirect('wishlist'); closeMobileMenu();">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                </a>
+                <a [hidden]="userRole !== 'provider'" (click)="redirect('wishlist-provider'); closeMobileMenu();">
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                </a>
+                <a [hidden]="userRole === 'guest'" (click)="redirect('messages'); closeMobileMenu();">
+                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                </a>
+
+                <a *ngIf="!userName" (click)="closeMobileMenu(); showLogin = true;">
+                    <span>
+                        <i class="fa fa-user" aria-hidden="true"></i> {{userName}}
+                    </span>
+                    {{'login' | translate}}
+                </a>
+                <a *ngIf="!userName" (click)="closeMobileMenu(); showSignUp = true;">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    {{'sign_up' | translate}}
+                </a>
+            </div>
+            <div class="header-user-block" *ngIf="!isMobile">
+                <div *ngIf="userName" class="nav-user">
+                    <span class="nav-user-username">
+                        <img *ngIf="userAvatar" src="{{ userAvatar }}" alt=""> {{userName}}
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </span>
+                    <ul class="nav-user-details">
+                        <li (click)="redirect('userSettings'); closeMobileMenu();" *ngIf="userRole === 'client'">
+                            <i class="fa fa-cog" aria-hidden="true"></i>{{'settings' | translate}}
+                        </li>
+                        <li (click)="redirect('providerSettings'); closeMobileMenu();" *ngIf="userRole === 'provider'">
+                            <i class="fa fa-cog" aria-hidden="true"></i>{{'settings' | translate}}
+                        </li>
+                        <li (click)="logout(); closeMobileMenu();">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>{{'logout' | translate}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</header>
+<login-popup *ngIf="showLogin" (closeForm)="handleCloseLoginForm($event)" (createAccount)="handleCreateAccount($event)"></login-popup>
+<signup-popup *ngIf="showSignUp" (closeForm)="handleCloseSignupForm($event)"></signup-popup>
+
+<modal id="general-errors-popup">
+    <div class="gw-modal">
+        <div class="gw-modal-body">
+            <h3>{{genError.title | translate}}</h3>
+            <p *ngIf="!errorsArray">{{genError.text | translate}}</p>
+            <div *ngIf="errorsArray">
+                <div class="modal-error-text" *ngFor="let error of genError.text; let i = index;">{{error.field | translate }}: {{error.value}}</div>
+            </div>
+            <div class="gw-modal-buttons-wrapper">
+                <button class="btn btn-default btn-white" (click)="closeModal('general-errors-popup');">{{'close' | translate}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="gw-modal-background"></div>
+</modal>
+
+
+
+<modal id="general-messages-popup">
+    <div class="gw-modal">
+        <div class="gw-modal-body" *ngIf="genMessage">
+            <h3>{{genMessage.title | translate}}</h3>
+            <p *ngIf="!genMessage.translateValue">{{genMessage.text | translate}}</p>
+            <p *ngIf="genMessage.translateValue" translate [translateParams]="{value: genMessage.translateValue}">{{genMessage.text}}</p>
+            <div class="gw-modal-buttons-wrapper">
+                <button class="btn btn-default" (click)="closeModal('general-messages-popup');">{{'close' | translate}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="gw-modal-background"></div>
+</modal>
+
+<modal id="supportForm">
+    <div class="gw-modal">
+        <div class="gw-modal-body">
+            <i class="modal-close-icon fa fa-times pull-right" aria-hidden="true" (click)="closeModal('supportForm');"></i>
+            <h3>{{'support_form_title' | translate}}</h3>
+            <form [formGroup]="supportForm" (ngSubmit)="sendForm('supportForm')">
+                <fieldset class="form-group" *ngIf="!isUserLoggedIn">
+                    <label for="support-form-name">{{'name' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="name" id="support-form-name">
+                    <div *ngIf="supportForm.controls.name.invalid && (supportForm.controls.name.dirty || supportForm.controls.name.touched)" class="field-error">
+                        <div *ngIf="supportForm.controls.name.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group" *ngIf="!isUserLoggedIn">
+                    <label for="support-form-email">{{'email' | translate}}</label>
+                    <input class="form-control" type="email" formControlName="email" id="support-form-email">
+                    <div *ngIf="supportForm.controls.email.invalid && (supportForm.controls.email.dirty || supportForm.controls.email.touched)" class="field-error">
+                        <div *ngIf="supportForm.controls.email.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                        <div *ngIf="supportForm.controls.email.errors.email">
+                            {{'email_field' | translate}}
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label for="support-form-subject">{{'subject' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="subject" id="support-form-subject">
+                    <div *ngIf="supportForm.controls.subject.invalid && (supportForm.controls.subject.dirty || supportForm.controls.subject.touched)" class="field-error">
+                        <div *ngIf="supportForm.controls.subject.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label for="support-form-message">{{'message' | translate}}</label>
+                    <textarea class="form-control" formControlName="message" id="support-form-message" cols="30" rows="5"></textarea>
+                    <div *ngIf="supportForm.controls.message.invalid && (supportForm.controls.message.dirty || supportForm.controls.message.touched)" class="field-error">
+                        <div *ngIf="supportForm.controls.message.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                    </div>
+                </fieldset>
+                <button [disabled]="!supportForm.valid"  type="submit" class="btn btn-success">{{'send' | translate}}</button>
+            </form>
+        </div>
+    </div>
+    <div class="gw-modal-background"></div>
+</modal>
+
+<modal id="contactForm">
+    <div class="gw-modal">
+        <div class="gw-modal-body">
+            <i class="modal-close-icon fa fa-times pull-right" aria-hidden="true" (click)="closeModal('contactForm');"></i>
+            <h3>{{'contact_form_title' | translate}}</h3>
+            <form [formGroup]="contactForm" (ngSubmit)="sendForm('contactForm')">
+                <fieldset class="form-group" *ngIf="!isUserLoggedIn">
+                    <label for="contact-form-name">{{'name' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="name" id="contact-form-name">
+                    <div *ngIf="contactForm.controls.name.invalid && (contactForm.controls.name.dirty || contactForm.controls.name.touched)" class="field-error">
+                        <div *ngIf="contactForm.controls.name.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group" *ngIf="!isUserLoggedIn">
+                    <label for="contact-form-email">{{'email' | translate}}</label>
+                    <input class="form-control" type="email" formControlName="email" id="contact-form-email">
+                    <div *ngIf="contactForm.controls.email.invalid && (contactForm.controls.email.dirty || contactForm.controls.email.touched)" class="field-error">
+                        <div *ngIf="contactForm.controls.email.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                        <div *ngIf="contactForm.controls.email.errors.email">
+                            {{'email_field' | translate}}
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label for="contact-form-subject">{{'subject' | translate}}</label>
+                    <input class="form-control" type="text" formControlName="subject" id="contact-form-subject">
+                    <div *ngIf="contactForm.controls.subject.invalid && (contactForm.controls.subject.dirty || contactForm.controls.subject.touched)" class="field-error">
+                        <div *ngIf="contactForm.controls.subject.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label for="contact-form-message">{{'message' | translate}}</label>
+                    <textarea class="form-control" formControlName="message" id="contact-form-message" cols="30" rows="5"></textarea>
+                    <div *ngIf="contactForm.controls.message.invalid && (contactForm.controls.message.dirty || contactForm.controls.message.touched)" class="field-error">
+                        <div *ngIf="contactForm.controls.message.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                    </div>
+                </fieldset>
+                <button [disabled]="!contactForm.valid"  type="submit" class="btn btn-success">{{'send' | translate}}</button>
+            </form>
+        </div>
+    </div>
+    <div class="gw-modal-background"></div>
+</modal>
+
+
+
+
+<div class="gw-loader" *ngIf="turnOnLoader">
+    <!-- <div id="gw-loading"></div> -->
+    <div class="gw-loader-dots-wrapper">
+        <div class="dot dot1"></div>
+        <div class="dot dot2"></div>
+        <div class="dot dot3"></div>
+        <div class="dot dot4"></div>
+    </div>
+</div>

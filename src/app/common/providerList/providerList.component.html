@@ -1,0 +1,54 @@
+<!-- MAIN-CONTENT -->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<main class="main-container provider-list-wrapper">
+    <div class="internal-container  provider-list-internal-wrapper">
+        <h1>{{'provider_list' | translate}}</h1>
+        <div class="clearfix">
+
+            <aside class="provider-list-aside">
+
+                <h2>{{'services' | translate}}</h2>
+                <div *ngIf="!mql.matches" class="provider-list-aside-sections">
+                    <ul>
+                        <li (click)="chooseService('top')">{{'top_rated' | translate}}</li>
+                        <li *ngFor="let service of servicesList; let i = index" (click)="chooseService(i)">{{service.name | translate}}</li>
+                    </ul>
+                </div>
+
+            </aside>
+
+            <section *ngIf="providersList" class="provider-list-provider-wrapper">
+
+                <h2>{{'list_of' | translate}}
+                    <span *ngIf="!mql.matches">
+                        <span *ngIf="!currentService || currentService == 'top'; else showServiceName">{{'top_rated' | translate}}</span>
+                        <ng-template #showServiceName>{{currentService | translate}}</ng-template>
+                    </span>
+                    <div *ngIf="mql.matches" class="provider-list-select">
+                        <select (change)="chooseService($event.target.value)">
+                            <option [selected]="!currentService || currentService == 'top'" value="top">{{'top_rated' | translate}}</option>
+                            <option *ngFor="let service of servicesList; let i = index" [value]="i" [selected]="currentService == service.name">{{service.name | translate}}</option>
+                        </select>
+                    </div>
+                </h2>
+
+                <div class="provider-list-items-wrapper">
+                    <div *ngFor="let provider of providersList; let i = index" class="provider-list-provider">
+                        <img [src]="provider.avatar.url" alt="" class="provider-avatar" (click)="openProviderProfile(i);">
+                        <h3 (click)="openProviderProfile(i);">{{provider.name}} {{provider.lastName}}</h3>
+                        <div>
+                            <span *ngFor="let currentRate of provider.rate.rate">
+                                <i class="fa fa-star-o" aria-hidden="true" *ngIf="currentRate === 0"></i>
+                                <i class="fa fa-star" aria-hidden="true" *ngIf="currentRate === 1"></i>
+                                <i class="fa fa-star-half-o" aria-hidden="true" *ngIf="currentRate === 2"></i>
+                            </span>
+                            <span> - {{provider.rate.rating}}</span>
+                        </div>
+                        <p>{{'reviews' | translate}}: {{provider.reviewsCount}}</p>
+                    </div>
+                    <h2 *ngIf="!providersList || (providersList.length == 0)">{{'no_providers_found' | translate}}</h2>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>

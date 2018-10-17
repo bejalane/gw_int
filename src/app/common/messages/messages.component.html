@@ -1,0 +1,88 @@
+<!--Preloader-->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<!--END Preloader-->
+<main class="main-container  dialog-main-wrapper">
+    <div class="internal-container">
+
+
+
+        <div class="dialog-wrapper" *ngIf="!error">
+
+            <div class="dialog-header clearfix" *ngIf="dialog">
+                {{dialog.companionName}}
+                <button class="btn btn-default btn-thin back-to-dialogs" (click)="router.navigate(['/messages'])">{{'back_to_messages' | translate}}</button>
+            </div>
+
+            <div id="main-dialog-messages" class="dialog-container" *ngIf="messages">
+                <div class="message-wrapper clearfix" *ngFor="let message of messages;">
+                    <div class="message-item {{message.class}}">
+                        <div class="message-avatar" *ngIf="!isMobile">
+                            <img src="{{dialog.companionAvatar.url}}" alt="" *ngIf="message.data.sender === dialog.companion">
+                            <img src="{{userAvatar}}" alt="" *ngIf="message.data.sender !== dialog.companion">
+                        </div>
+
+                        <div class="message-text">
+                            <div class="message-sender" *ngIf="message.data.sender === dialog.companion">{{dialog.companionName}}</div>
+                            <div class="message-sender" *ngIf="message.data.sender !== dialog.companion">{{userName}}</div>
+                            <div *ngIf="message.data.images.length; then thenBlock"></div>
+                            <ng-template #thenBlock>
+                                <div class="img-container">
+                                    <img src="{{message.data.images[0].url}}" alt="" *ngIf="message.data.images[0].url">
+                                </div>
+                            </ng-template>
+                            <div>{{message.text}}</div>
+                        </div>
+                        <span class="message-date">
+                            {{message.created_at | date:'dd.MM.yyyy HH:mm:ss'}}
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="message-hidden-options clearfix" [hidden]="true">
+                <div class="show-add-image-option">
+                    <input type="file"
+                           [attr.id]="'uploadFilesBtn'"
+                           class="form-control upload-files-btn"
+                           imageUpload
+                           (imageSelected)="selected($event)"
+                           [resizeOptions]="resizeOptions">
+                    <!--<div class="table-providers-note-img" *ngFor="let img of attaches; let imgIndex = index">-->
+                        <!--<div class="table-providers-note-img-remove" (click)="removeImage(imgIndex)">-->
+                            <!--<i class="fa fa-times" aria-hidden="true"></i>-->
+                        <!--</div>-->
+                        <!--<img [src]="img" alt="" width="150">-->
+                    <!--</div>-->
+                    <!--<div class="table-providers-note-img-btn" (click)="clickFire('#uploadFilesBtn')">-->
+                        <!--<i class="fa fa-plus" aria-hidden="true"></i>-->
+                        <!--<span>{{'upload_image' | translate}}</span>-->
+                    <!--</div>-->
+                </div>
+            </div>
+
+            <div class="send-message-form">
+                <textarea placeholder="{{'type_message' | translate }}"
+                          id="message-textarea"
+                          class="message-textarea"
+                          [(ngModel)]="newMessage"
+                          cols="30" rows="10">
+                </textarea>
+                <div class="message-paperclip">
+                    <div class="table-providers-note-img" *ngFor="let img of attaches; let imgIndex = index" (click)="removeImage(imgIndex)">
+                        <div class="table-providers-note-img-remove" >
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </div>
+                        <img [src]="img" alt="" width="50">
+                    </div>
+                    <i class="fa fa-paperclip" aria-hidden="true" (click)="clickFire('#uploadFilesBtn');"></i>
+                </div>
+                <div class="submit-message">
+                    <input class="btn btn-success" type="submit" value="{{'send_message' | translate}}" (click)="sendMessage();" *ngIf="!isMobile">
+                    <i class="fa fa-arrow-circle-up" aria-hidden="true" (click)="sendMessage();" *ngIf="isMobile"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

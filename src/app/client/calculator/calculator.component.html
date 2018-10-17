@@ -1,0 +1,267 @@
+<!-- MAIN-CONTENT -->
+<!-- MARRY ME -->
+
+<main class="main-container calculator-main-container" id="main-calculator">
+
+    <section class="calculator-internal-wrapper internal-wrapper">
+        <div class="create-plan" [hidden]="mode === 'plan'">
+            <!-- <div class="home-banner-input" *ngIf="calculator && (calculator.planName || calculator.planName === '')">
+                <span>Enter the name:</span>
+                <input [(ngModel)]="calculator.planName" (ngModelChange)="updateLS($event)">
+            </div> -->
+            <div class="home-wedding-plan-title" *ngIf="calculator && (calculator.planName || calculator.planName === '')">
+                <h2>{{'your_wedding_plan' | translate}}</h2>
+                <div class="home-wedding-plan-input">
+                    <span>{{'names' | translate}}:</span>
+                    <input type="text" [(ngModel)]="calculator.planName" (ngModelChange)="updateLS($event)">
+                </div>
+                <div class="home-wedding-plan-content clearfix">
+                    <p style="white-space: pre-line">{{'new_plan_explanation' | translate}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="home-tables-wrapper" *ngIf="calculator && (calculator.planName || calculator.planName === '') ">
+            <div class="home-tables-general">
+                <div class="home-tables-title" [hidden]="mode === 'plan'">
+                    <h2>{{'general_title' | translate}}
+                        <button class="btn btn-default btn-thin" (click)="openModal('clean-confirm')">{{'back_to_basic_settings' | translate}}</button>
+                    </h2>
+                </div>
+                <div class="table-general clearfix" [hidden]="mode === 'plan'">
+                    <div class="table-left-cells clearfix">
+                        <div class="table-left-cells-internal-wrapper clearfix">
+                            <div class="table-cell">
+                                <h3>{{'location_title' | translate}}</h3>
+                                <div class="caret-select">
+                                    <select [(ngModel)]="calculator.area" class="form-control" (ngModelChange)="areaChange($event); updateLS($event);">
+                                        <option *ngFor="let c of areas" [ngValue]="c.id">{{c.name | translate}}</option>
+                                    </select>
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <h3>{{'wedding_date' | translate}}</h3>
+                                <div>
+                                    <p-calendar class="modal-calendar" [(ngModel)]="calculator.date" [locale]="dp_locale" dateFormat="dd.mm.yy" (ngModelChange)="updateLS($event)"></p-calendar>
+                                    <!--<input [(ngModel)]="calculator.date" type="text" class="form-control" (ngModelChange)="updateLS($event)">-->
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <h3>{{'guests' | translate}}</h3>
+                                <div>
+                                    <input [(ngModel)]="calculator.guests" type="text" class="form-control" (ngModelChange)="updateLS($event); recalculateBudgets($event)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-right-cells clearfix">
+                        <div class="table-cell table-cell-textarea">
+                            <h3>{{'tell_something_about_you' | translate}}</h3>
+                            <div>
+                                <textarea [(ngModel)]="calculator.aboutUs" class="form-control" (ngModelChange)="updateLS($event)" placeholder="{{'write_something_about_you' | translate}}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="basic-settings-button-wrapper">
+                        <button class="btn-white back-to-basic-mobile" (click)="openModal('clean-confirm')">{{'back_to_basic_settings' | translate}}</button>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+            <div class="home-tables-providers" name="userCalculator">
+                <div class="home-tables-title">
+                    <h2>{{'services' | translate}}</h2>
+                </div>
+                <div class="table-providers">
+                    <div class="table-providers-row table-providers-header-row">
+                        <div class="table-providers-cell cell-2"></div>
+                        <div class="table-providers-cell cell-1">{{'service_name' | translate}}</div>
+                        <div class="table-providers-cell cell-3">{{'price_range' | translate}}</div>
+                        <div class="table-providers-cell cell-4">{{'notes_and_images' | translate}}</div>
+                    </div>
+
+                    <div *ngFor="let service of calculator?.jobs; let i = index;">
+                        <!-- <div class="calculator-category" *ngIf="service.category">{{service.category | translate}}</div> -->
+                        <div class="calculator-category-photo" *ngIf="service.category">
+                            <img [src]="'assets/images/'+service.category+'.jpg'" alt="">
+                            <div class="calculator-category-photo-overlay"><span>{{service.category | translate}}</span></div>
+                        </div>
+                        <div *ngIf="service.defaultShow" class="table-providers-row">
+                            <!-- <div class="table-providers-cell cell-1">{{service.name}}</div>
+                            <div class="table-providers-cell cell-2" >
+                                <label for="need-{{i}}"> <input id="<need->{i}</need->" type="checkbox" [(ngModel)]="service.need" (ngModelChange)="updateLS($event)"></label> -->
+
+                            <div class="table-providers-cell cell-2">
+                                <input class="gw-checkbox" id="need-{{i}}" type="checkbox" [(ngModel)]="service.need" (ngModelChange)="updateLS($event); needChange(i);">
+                                <label for="need-{{i}}"></label>
+                            </div>
+                            <div class="table-providers-cell cell-1" (click)="expandMobile($event, i)">{{service.name | translate}}
+                                <div>
+                                    <span class="mobile-show-service">
+                                        <i class="fa fa-caret-down" aria-hidden="true" *ngIf="
+                                            (isMobile && !service.mobileExpanded && !service.children.length)
+                                            ||
+                                            (isMobile && !service.mobileExpanded && service.children.length && service.need)
+                                        "></i>
+                                        <i class="fa fa-caret-up" aria-hidden="true" *ngIf="
+                                            (isMobile && service.mobileExpanded && !service.children.length)
+                                            ||
+                                            (isMobile && service.mobileExpanded && service.children.length && service.need)
+                                        "></i>
+                                    </span>
+                                    <span class="mobile-calc-from-to">(₪{{service.from}} - ₪{{service.to}})</span>
+                                </div>
+                            </div>
+                            <div class="table-providers-cell cell-3" *ngIf="!service.customProviderOpen && !service.hasChildren" [hidden]="isMobile && !service.mobileExpanded">
+                                <span>{{'from_text' | translate}}</span>
+                                <input type="number" [(ngModel)]="service.from" [max]="service.to" class="form-control" (ngModelChange)="updateLS($event)">
+                                <span>{{'to_text' | translate}}</span>
+                                <input type="number" [min]="service.from" [(ngModel)]="service.to" class="form-control" (ngModelChange)="updateLS($event)">
+                                <!-- <span>{{service.range[0]}} - {{service.range[1]}}</span> -->
+
+                                <!-- <nouislider [(ngModel)]="service.range" [min]="0" [max]="service.maxValRange" [config]="someKeyboardConfig"></nouislider> -->
+                            </div>
+                            <div class="table-providers-cell cell-4" *ngIf="!service.customProviderOpen && !service.hasChildren && !isMobile" >
+                                <button class="btn btn-default btn-sm" (click)="openNote(i)">
+                                    <span>
+                                        <span *ngIf="!service.note && !service.images.length">{{'add_text' | translate}}</span>
+                                        <span *ngIf="service.note || service.images.length">{{'edit_text' | translate}}</span>
+                                        {{'notes_and_images' | translate}}
+                                    </span>
+                                </button>
+                                <!-- <button class="btn btn-default" (click)="setCustomProvider(i)">I have already</button> -->
+                                <i *ngIf="service.images.length" class="fa fa-paperclip" aria-hidden="true" title="You have attached images to this service"></i>
+                                <small>{{service.note}}</small>
+                            </div>
+                            <div class="table-providers-cell cell-5" *ngIf="service.customProviderOpen && !service.hasChildren" [hidden]="isMobile && !service.mobileExpanded">
+                                <div class="col-md-6">
+                                    <label for="">{{'provider_name' | translate}}</label>
+                                    <input type="text" class="form-control" [(ngModel)]="service.chosenProvider" (ngModelChange)="updateLS($event)">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">{{'price_offer' | translate}}</label>
+                                    <input type="text" class="form-control" [(ngModel)]="service.priceOffer" (ngModelChange)="updateLS($event)">
+                                </div>
+                                <i class="fa fa-times" aria-hidden="true" (click)="closeCustomProvider(i)" *ngIf="mode !== 'plan'"></i>
+                            </div>
+                            <div class="sub-services" *ngIf="service.children.length && service.need" [hidden]="isMobile && !service.mobileExpanded">
+                                <div>{{'choose_attractions' | translate}}:</div>
+                                <ul class="sub-service-list">
+                                    <li *ngFor="let sub of service.children; let n = index;">
+                                        <input class="gw-checkbox" id="sub-service-{{n}}" type="checkbox" [(ngModel)]="sub.need" (ngModelChange)="updateLS($event); addSubService(i, n);">
+                                        <label for="sub-service-{{n}}">{{sub.name | translate}}</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="table-providers-textarea clearfix" *ngIf="service.noteExpanded && !service.children.length && !service.customProviderOpen" [hidden]="isMobile && !service.mobileExpanded">
+                                <div class="table-providers-textarea-text">
+                                    <h3>{{'notes' | translate}}</h3>
+                                    <button class="pull-right btn btn-sm" (click)="openNote(i)">
+                                        {{'hide' | translate}}
+                                        <i class="fa fa-level-up" aria-hidden="true"></i>
+                                    </button>
+                                    <textarea [(ngModel)]="service.note" class="form-control" (ngModelChange)="updateLS($event)"></textarea>
+                                </div>
+
+
+                                <div class="table-providers-textarea-img">
+                                    <h3>{{'images' | translate}}</h3>
+                                    <!-- <input type="file" [attr.id]="'uploadFilesBtn-' + i" class="form-control upload-files-btn" (change)="addImageToNote($event, i)"
+                                        multiple> -->
+                                    <input type="file" [attr.id]="'uploadFilesBtn-' + i" class="form-control upload-files-btn" imageUpload (imageSelected)="selected($event, i)"
+                                           [resizeOptions]="resizeOptions" multiple>
+                                    <div class="table-providers-note-img" *ngFor="let img of service.images; let imgIndex = index">
+                                        <div class="table-providers-note-img-remove" (click)="removeNoteImage(imgIndex, i)">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </div>
+                                        <img [src]="img" alt="" width="150">
+                                    </div>
+                                    <div class="table-providers-note-img-btn" (click)="clickFire(i)">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                        <span>{{'upload_image' | translate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CHILDREN-->
+                            <!-- <div class="children-service-wrapper">
+                                <div class="table-providers-row" *ngFor="let subservice of service.children; let n = index;">
+                                    <div class="table-providers-cell cell-1"> - {{subservice.name}}</div>
+                                    <div class="table-providers-cell cell-2"><input type="checkbox" [(ngModel)]="subservice.need" (ngModelChange)="updateLS($event)"></div>
+                                    <div class="table-providers-cell cell-3">
+                                        From <input type="text" [(ngModel)]="subservice.from" class="form-control" (ngModelChange)="updateLS($event)"> To <input type="text" [(ngModel)]="subservice.to" class="form-control" (ngModelChange)="updateLS($event)">
+                                    </div>
+                                    <div class="table-providers-cell cell-4">
+                                        <button class="btn btn-default btn-sm" (click)="openSubNote(i, n)">
+                                            <span><span *ngIf="!service.note && !service.images.length">Add</span><span *ngIf="service.note || service.images.length">Edit</span> Description</span>
+                                        </button>
+                                        <span>{{subservice.note}}</span>
+                                        <i *ngIf="subservice.images.length" class="fa fa-paperclip" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="table-providers-textarea" *ngIf="subservice.noteExpanded">
+                                        <span>Write Description</span>
+                                        <textarea [(ngModel)]="subservice.note" class="form-control" (ngModelChange)="updateLS($event)"></textarea>
+                                        <input type="file" class="form-control" (change)="addImageToNote($event, i, n)" multiple>
+                                        <div class="table-providers-note-img" *ngFor="let img of subservice.images; let subImgIndex = index">
+                                            <div class="table-providers-note-img-remove" (click)="removeNoteImage(subImgIndex, i, n)"><i class="fa fa-times" aria-hidden="true"></i></div>
+                                            <img [src]="img" alt="" width="150" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- CHILDREN-->
+                        </div>
+                    </div>
+                    <div class="calculator-category">Total: {{calculatorTotals.from}} - {{calculatorTotals.to}}</div>
+                    <div class="table-providers-send">
+
+                        <button class="btn btn-success" (click)="sendCalculator()" [disabled]="!isUserLoggedIn">{{'send_text' | translate}}</button>
+                        <div *ngIf="!isUserLoggedIn">{{"login_to_add_plan_text" | translate}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<modal id="plan-success-created">
+    <div class="gw-modal">
+        <div class="gw-modal-body">
+            <h3>{{'plan_crated_success' | translate}}</h3>
+            <p>{{'choose_do_next' | translate}}:</p>
+            <div class="gw-modal-buttons-wrapper">
+                <button class="btn btn-default btn-success" (click)="goToPlan();">{{'go_to_plan' | translate}}</button>
+                <button class="btn btn-default btn-white" (click)="closeModal('plan-success-created');">{{'stay_here' | translate}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="gw-modal-background"></div>
+</modal>
+
+<modal id="clean-confirm">
+    <div class="gw-modal">
+        <div class="gw-modal-body">
+            <h3>{{'clear_plan' | translate}}</h3>
+            <p>{{'clear_plan_confirm' | translate}}</p>
+            <div class="gw-modal-buttons-wrapper">
+                <button class="btn btn-default" (click)="cleanCalculator(); closeModal('clean-confirm');">{{'yes_text' | translate}}</button>
+                <button class="btn btn-default" (click)="closeModal('clean-confirm');">{{'cancel_text' | translate}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="gw-modal-background"></div>
+</modal>
+
+<modal id="mobile-service">
+    <div class="gw-modal">
+        <div class="gw-modal-body">
+
+        </div>
+    </div>
+    <div class="gw-modal-background"></div>
+</modal>

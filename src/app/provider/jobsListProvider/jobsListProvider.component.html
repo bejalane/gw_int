@@ -1,0 +1,23 @@
+<!-- MAIN-CONTENT -->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<main class="main-container provider-job-list-main-container">
+    <div class="internal-container provider-job-list-container">
+        <div class="provider-job-list-title clearfix">
+            <h1>{{'offers' | translate}}</h1>
+            <!-- <div>
+				<span>Order by</span>
+				<select name="" id="">
+					<option value="">Date</option>
+					<option value="">Money</option>
+				</select>
+			</div> -->
+        </div>
+
+        <div *ngIf="jobs">
+            <app-job-provider-tmpl  *ngFor="let job of jobs" [job]="job" [mode]="'jobs-list'" [isMobile]="isMobile"></app-job-provider-tmpl>
+            <div id="loadMoreBtn"></div>
+        </div>
+    </div>
+
+
+</main>

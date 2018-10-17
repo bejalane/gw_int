@@ -1,0 +1,114 @@
+<!-- MAIN-CONTENT -->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<main class="main-container settings-provider settings-user">
+
+    <div class="internal-container settings-main-wrapper">
+        <div class="settings-block">
+            <div class="" *ngIf="user">
+                <h1>{{'settings' | translate}}</h1>
+                <h2>{{'user_settings' | translate}}:</h2>
+                <div class="form-group">
+                    <!-- <input [(ngModel)]="calculator.planName" (ngModelChange)="updateLS($event)"> -->
+                    <label for="name">{{'name' | translate}}:</label>
+                    <input id="name" type="text" class="form-control" [(ngModel)]="user.name">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">{{'last_name' | translate}}:</label>
+                    <input id="lastName" type="text" class="form-control" [(ngModel)]="user.lastName">
+                </div>
+                <div class="form-group">
+                    <label>{{'email' | translate}}:</label>
+                    <input disabled id="email" type="email" email class="form-control" [(ngModel)]="user.email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">{{'phone' | translate}}:</label>
+                    <input id="phone" type="text" class="form-control" [(ngModel)]="user.phone">
+                </div>
+                <div class="form-group clearfix">
+                    <label for="avatar">{{'avatar' | translate}}:</label>
+                    <input type="file" id="uploadAvatarBtn" class="form-control upload-files-btn" imageUpload (imageSelected)="selectedAvatar($event, i)"
+                           [resizeOptions]="resizeOptions">
+                    <div class="table-providers-note-img-btn" (click)="clickFire('#uploadAvatarBtn')" *ngIf="!user.avatar">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span>{{'upload_image' | translate}}</span>
+                    </div>
+                    <div class="avatar-wrapper" *ngIf="user.avatar">
+                        <img [src]="user.avatar.url" alt="" width="150" *ngIf="user.avatar.url">
+                        <img [src]="user.avatar" alt="" width="150" *ngIf="!user.avatar.url">
+                        <div class="table-providers-note-img-remove" (click)="removeAvatar()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <!--<input id="avatar" type="file" class="form-control" (change)="avatarChange($event)">-->
+                    <!--<img [src]="user.avatar.url" alt="" width="150">-->
+                </div>
+
+                <div class="settings-user-ratio">
+                    <h2>{{'account_settings' | translate}}:</h2>
+                    <div class="settings-notifications-wrapper">
+                        <div class="form-group">
+                            <h3>{{'email' | translate}}:</h3>
+                            <div class="checkbox">
+                                <input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getImmediatelyOffersEmail">
+                                <label>{{'email_immediately_text' | translate}}</label>
+                            </div>
+                            <!--<div class="checkbox">-->
+                                <!--<input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getDailyOffersEmail">-->
+                                <!--<label>{{'email_once_text' | translate}}</label>-->
+                            <!--</div>-->
+                            <div class="radio">
+                                <label>
+                                    <input (click)="turnOffSending('EmailsOffer');"
+                                           [checked]="!user.account_settings.getImmediatelyOffersEmail && !user.account_settings.getDailyOffersEmail"
+                                           type="radio">{{'email_off_text' | translate}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h3>{{'inbox_messages' | translate}}:</h3>
+                            <div class="checkbox">
+                                <input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getImmediatelyMessagesEmail">
+                                <label>{{'inbox_messages_email_every_text' | translate}}</label>
+                            </div>
+                            <!--<div class="checkbox">-->
+                                <!--<input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getDailyMessagesEmail">-->
+                                <!--<label>{{'inbox_messages_email_one_text' | translate}}</label>-->
+                            <!--</div>-->
+                            <div class="radio">
+                                <label>
+                                    <input (click)="turnOffSending('EmailsMsg');"
+                                           [checked]="!user.account_settings.getImmediatelyMessagesEmail && !user.account_settings.getDailyMessagesEmail"
+                                           type="radio">{{'inbox_messages_email_off_text' | translate}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<h3>{{'sms' | translate}}:</h3>-->
+                            <!--<div class="checkbox">-->
+                                <!--<input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getDailyOffersSms">-->
+                                <!--<label>{{'sms_once_text' | translate}}</label>-->
+                            <!--</div>-->
+                            <!--<div class="checkbox">-->
+                                <!--<input class="gw-checkbox" type="checkbox" [(ngModel)]="user.account_settings.getDailyMessagesSms">-->
+                                <!--<label>getDailyMessagesSms</label>-->
+                            <!--</div>-->
+                            <!--<div class="radio">-->
+                                <!--<label>-->
+                                    <!--<input (click)="turnOffSending('SMS');"-->
+                                           <!--[checked]="!user.account_settings.getDailyMessagesSms && !user.account_settings.getDailyOffersSms"-->
+                                           <!--type="radio">{{'sms_off_text' | translate}}-->
+                                <!--</label>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn btn-success" (click)="saveSettings()">{{'save_text' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>

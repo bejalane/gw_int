@@ -1,0 +1,133 @@
+<!-- MAIN-CONTENT -->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+<main class="main-container provider-job-main-wrapper">
+    <div class="internal-container provider-job-internal-container clearfix">
+        <div class="provider-job" *ngIf="start">
+            <div class="provider-job-header clearfix">
+                <div class="provider-job-name clearfix">
+                    <div class="provider-job-avatar">
+                        <img src="{{job.userAvatar}}" alt="">
+                    </div>
+                    <div class="provider-job-name-text">
+                        <h1>{{job.name}}</h1>
+                        <p>{{'budget' | translate}} - {{job.budgetFrom}}...{{job.budgetTo}}₪</p>
+                    </div>
+                </div>
+                <div class="provider-job-header-info">
+                    <p>{{job.postDate | date:'dd/MM/yyyy h:m'}}</p>
+                    <span class="job-offers" [hidden]="!job.offersCount">{{job.offersCount}} {{'offers' | translate}} ({{offersRange.min}}...{{offersRange.max}}₪)</span>
+                </div>
+            </div>
+            <div class="wishlist">
+                <div class="add-to-wishlist-button">
+                    <button class="btn btn-success" (click)="addToWishlist()" *ngIf="!job.inFavorites">
+                        <i class="fa fa-heart-o" aria-hidden="true"></i> {{"wishlist_add_text" | translate }}
+                    </button>
+                    <button class="btn btn-success" (click)="removeFromWishlist()" *ngIf="job.inFavorites">
+                        <i class="fa fa-heart" aria-hidden="true"></i> {{"wishlist_remove_text" | translate }}
+                    </button>
+                </div>
+            </div>
+            <div class="provider-job-extra-info">
+                <div class="provider-job-list-details">
+                    <small>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i> {{job.area}}</small>
+                    <small>
+                        <i class="fa fa-user" aria-hidden="true"></i> {{job.guests}} {{'guests' | translate}}</small>
+                    <small>
+                        <i class="fa fa-calendar" aria-hidden="true"></i> {{job.date}}</small>
+
+                </div>
+                <div class="clearfix">
+                    <span class="provider-job-service-name">{{job.serviceName | translate}}</span>
+                </div>
+            </div>
+            <div class="provider-job-description" *ngIf="job.description">
+                <h2>{{'description' | translate}}:</h2>
+                <p>{{job.description}}</p>
+            </div>
+            <div class="provider-job-attachments" *ngIf="job.images.length">
+                <h2>{{'attachments' | translate}}:</h2>
+                <div class="provider-job-images">
+                    <div class="provider-job-image-wrapper" *ngFor="let image of job.images; let i = index;">
+                        <img [src]="image.url" (click)="openGallery(i)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="provider-form" *ngIf="job && !postedOffer">
+            <form [formGroup]="sendOfferForm" (ngSubmit)="sendOffer()">
+                <h3>{{'make_offer' | translate}}</h3>
+                <label for="">{{'enter_price' | translate}}:</label>
+                <input formControlName="price" name="price" class="form-control" type="number" min="1" [(ngModel)]="newOffer.price">
+                <div *ngIf="sendOfferForm.controls.price.invalid && (sendOfferForm.controls.price.dirty || sendOfferForm.controls.price.touched)" class="field-error">
+                    <div *ngIf="sendOfferForm.controls.price.errors.required">
+                        {{'required_field' | translate}}
+                    </div>
+                    <div *ngIf="sendOfferForm.controls.price.errors.pattern">
+                        {{'numeric_field' | translate}}
+                    </div>
+                </div>
+
+                <label for="">{{'message' | translate}}:</label>
+                <textarea formControlName="offerText" name="offerText" class="form-control" id="" cols="30" rows="5" [(ngModel)]="newOffer.text"></textarea>
+                <div *ngIf="sendOfferForm.controls.offerText.invalid && (sendOfferForm.controls.offerText.dirty || sendOfferForm.controls.offerText.touched)" class="field-error">
+                    <div *ngIf="sendOfferForm.controls.offerText.errors.required">
+                        {{'required_field' | translate}}
+                    </div>
+                </div>
+                <button class="btn btn-success" [disabled]="!sendOfferForm.valid" type="submit">{{'send_text' | translate}}</button>
+            </form>
+        </div>
+        <div class="provider-form" *ngIf="postedOffer">
+            <div class="">
+                <div><p class="sent-offer-heading">{{'you_posted_on' | translate}}:</p> <p>{{postedOffer.postDate |  date: 'dd/MM/yyyy hh:mm'}}</p></div>
+                <div><p class="sent-offer-heading">{{'your_offer' | translate}}:</p> <p>{{postedOffer.price}} ₪</p></div>
+                <div><p class="sent-offer-heading">{{'message' | translate}}:</p> <p>{{postedOffer.text}}</p></div>
+                <button class="btn-success" (click)="editOffer()">{{'edit_offer' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<app-image-gallery [images]="imagesForGallery" [startIndex]="indexForGallery" (onClose)="showImageGallery = false" *ngIf="showImageGallery"></app-image-gallery>
+
+<modal id="edit-offer">
+    <div class="gw-modal">
+        <div class="gw-modal-body" *ngIf="offerToEdit">
+            <i class="fa fa-times pull-right modal-close-icon" aria-hidden="true" (click)="closeModal('edit-offer');"></i>
+            <h3>{{'edit_offer' | translate}}:</h3>
+            <form [formGroup]="editOfferForm" (ngSubmit)="updateOffer()">
+                <div>
+                    <label for="edit-price" class="modal-edit-price-price">
+                        <h4 class="modal-h4-inline">{{'price' | translate}}</h4>
+                        <input formControlName="price" name="price" id="edit-price" type="text" [(ngModel)]="offerToEdit.price">
+                    </label>
+                    <div *ngIf="editOfferForm.controls.price.invalid && (editOfferForm.controls.price.dirty || editOfferForm.controls.price.touched)" class="field-error">
+                        <div *ngIf="editOfferForm.controls.price.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                        <div *ngIf="editOfferForm.controls.price.errors.pattern">
+                            {{'numeric_field' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="edit-description">
+                        <h4>{{'message' | translate}}</h4>
+                        <textarea formControlName="offerText" name="offerText" id="edit-description" type="text" [(ngModel)]="offerToEdit.text"></textarea>
+                    </label>
+                    <div *ngIf="editOfferForm.controls.offerText.invalid && (editOfferForm.controls.offerText.dirty || editOfferForm.controls.offerText.touched)" class="field-error">
+                        <div *ngIf="editOfferForm.controls.offerText.errors.required">
+                            {{'required_field' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-button">
+                    <button class="btn-success" [disabled]="!editOfferForm.valid" type="submit">{{'update' | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="gw-modal-background"></div>
+</modal>

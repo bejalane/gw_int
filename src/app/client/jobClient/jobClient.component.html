@@ -1,0 +1,104 @@
+<!-- MAIN-CONTENT -->
+<app-fade-overlay [fadeOut]="fadeOut"></app-fade-overlay>
+
+<main class="main-container">
+    <div class="posted-job-wrapper">
+        <div class="posted-job internal-container">
+            <div *ngIf="postedJob">
+                <div class="posted-job-header clearfix">
+                    <div class="posted-job-title">
+                        <div class="posted-job-title-top">
+                            <h2>{{postedJob.serviceName | translate}} -</h2>
+                            <span class="job-offers" [hidden]="!postedJob.offersCount"> {{postedJob.offersCount}} {{'offers' | translate}}</span>
+                            <span class="job-offers-cost" *ngIf="postedJob.offersRange.min"> 
+                                <span *ngIf="postedJob.offersRange.min !== postedJob.offersRange.max">(₪{{postedJob.offersRange.min}}...{{postedJob.offersRange.max}})</span>
+                                <span *ngIf="postedJob.offersRange.min === postedJob.offersRange.max">(₪{{postedJob.offersRange.min}})</span>
+                            </span>
+                            <!-- <span class="" [hidden]="!offersRange.min"> {{offersRange.min}}-{{offersRange.max}} ₪</span> -->
+                        </div>
+                        <div class="provider-job-list-details clearfix">
+                            <small class="provider-job-list-details-price">
+                                ₪ {{postedJob.budgetFrom}}...{{postedJob.budgetTo}}
+                            </small>
+                            <small><i class="fa fa-map-marker" aria-hidden="true"></i> {{postedJob.area}}</small>
+                            <small>
+                                <i class="fa fa-user" aria-hidden="true"></i> {{postedJob.guests}} {{'guests' | translate}}
+                            </small>
+                            <small>
+                                <i class="fa fa-calendar" aria-hidden="true"></i> {{postedJob.date | date:"dd/MM/yyyy"}}
+                            </small>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="posted-job-title-top-choosen" *ngIf="!chosenOffer"> {{'provider_not_chosen' | translate}}</div>
+                    </div>
+
+                    <div class="job-description-wrapper">
+                        <div class="job-description">
+                            {{postedJob.jobDescription}}
+                            <span *ngIf="jobDescriptionReadMore">
+                                <a class="read-more-span" (click)="showFullDescription(true)" *ngIf="!showJobFullDescription"> {{'read_more' | translate}}</a>
+                                <a class="read-more-span" (click)="showFullDescription(false)" *ngIf="showJobFullDescription">{{'show_less' | translate}} </a>
+                            </span>
+                        </div>
+
+                        <!--delete this block when images will be-->
+                        <div class="provider-job-images" *ngIf="postedJob.images.length">
+                            <div class="provider-job-image-wrapper" *ngFor="let image of postedJob.images; let i = index;">
+                                <img [src]="image.url" alt="" (click)="openJobPhotoGallery(i);">
+                            </div>
+                            <div class="provider-job-image-wrapper provider-job-image-show-all">
+                                <span (click)="openJobPhotoGallery(0);">{{'show_all_img' | translate}}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--dont understand what is this section (yura)-->
+            <section *ngIf="chosenOffer">
+                <div class="chosen-offer-title">
+                    <h2>{{'chosen_offer' | translate}}</h2>
+                </div>
+                <div class="order-by">
+                    <app-job-client-tmpl [offer]="chosenOffer" [mode]="'chosenOffer'" [isMobile]="isMobile"></app-job-client-tmpl>
+                </div>
+            </section>
+            <section *ngIf="offers?.length">
+                <div class="order-by-section clearfix">
+                    <div class="order-by-section-title">
+                        <h2>{{'offers' | translate}}</h2>
+                        <span>(₪ {{postedJob.budgetFrom}}...{{postedJob.budgetTo}})</span>
+                    </div>
+                    <!--<div class="order-by-section-select">-->
+                        <!--<h3>{{'order_by' | translate}}</h3>-->
+                        <!--<select name="" id="">-->
+                            <!--<option value="">{{'date' | translate}}</option>-->
+                            <!--<option value="">{{'money' | translate}}</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                </div>
+                <div class="posted-job-offers">
+                    <div class="order-by" >
+                        <app-job-client-tmpl *ngFor="let offer of offers; let i = index;" [offer]="offer" [index]="i" [mode]="'jobs'" [isMobile]="isMobile" (chooseOfferTrigger)="onChooseOffer($event);"></app-job-client-tmpl>
+                        <div id="loadMoreOffers"></div>
+                    </div>
+                </div>
+            </section>
+            <section *ngIf="!offers?.length && !chosenOffer" class="posted-job-title-top posted-job-no-offers">
+                <h2>{{'no_offers_yet' | translate}}</h2>
+            </section>
+        </div>
+    </div>
+</main>
+<app-image-gallery [images]="imagesForGallery" [startIndex]="indexForGallery" (onClose)="showImageGallery = false" *ngIf="showImageGallery"></app-image-gallery>
+<!--<modal id="offer-choose">-->
+    <!--<div class="gw-modal">-->
+        <!--<div class="gw-modal-body">-->
+            <!--<h2>Success!</h2>-->
+            <!--<p *ngIf="offerChosen">You've successfully choosed Robert Robertov!</p>-->
+            <!--<p *ngIf="offerCancelled">You've cancelled provider Robert Robertov! Now you can choose another provider.</p>-->
+            <!--<button class="btn-success" (click)="closeModal('offer-choose');">{{'ok' | translate}}</button>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="gw-modal-background"></div>-->
+<!--</modal>-->

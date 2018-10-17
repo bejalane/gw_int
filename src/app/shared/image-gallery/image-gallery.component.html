@@ -1,0 +1,33 @@
+<div class="gw-ig">
+    <div class="fade-main-overlay" id="fade-overlay">
+        <div class="gw-loader-dots-wrapper white">
+            <div class="dot dot1"></div>
+            <div class="dot dot2"></div>
+            <div class="dot dot3"></div>
+            <div class="dot dot4"></div>
+        </div>
+    </div>
+    <div class="gw-ig-overlay" (click)="close();"></div>
+    <div class="gw-ig-image-wrapper" *ngIf="currentImage && !currentImage.type">
+        <img [src]="currentImage" alt="" (click)="nextImg();">
+    </div>
+    <!--<div class="gw-ig-image-wrapper" *ngIf="currentImage && currentImage.type === 'video'">-->
+    <!--<div [innerHTML]="currentImage.url"></div>-->
+    <!--</div>-->
+    <div class="gw-ig-image-wrapper" *ngIf="currentImage && currentImage.type === 'video'">
+        <div>
+            <iframe [src]="currentImage.iframe" width="600px" height="300px" frameborder="0"></iframe>
+        </div>
+    </div>
+    <div class="gw-ig-btns">
+        <div class="gw-ig-btn-back" (click)="prevImg();">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </div>
+        <div class="gw-ig-btn-forward" (click)="nextImg();">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+    </div>
+    <div class="gw-ig-close" (click)="close();">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+</div>
